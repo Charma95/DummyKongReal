@@ -21,8 +21,12 @@ private:
 	QPushButton *level4;
 
 public slots:
-	void showGameWindow();
+	//void showGameWindow(int level);
+	void level1Selected();
+	void level2Selected();
+	void level3Selected();
+	void level4Selected();
 
 signals:
-	void levelSelected();
+	void levelSelected(int level);
 };

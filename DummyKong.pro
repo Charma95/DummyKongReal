@@ -5,4 +5,4 @@ HEADERS     += MainWindow.h Help.h Options.h Levels.h GameWindow.h GameEngine/Ga
 SOURCES     += MainWindow.cpp main.cpp Help.cpp Options.cpp Levels.cpp GameWindow.cpp GameEngine/Game.cpp GameEngine/Barrel.cpp GameEngine/Character.cpp GameEngine/Hammer.cpp GameEngine/Level.cpp GameEngine/Movement.cpp GameEngine/timer.cpp GameEngine/Tool.cpp GameEngine/XController.cpp
 INCLUDEPATH += .
 LIBS	      += 
-QT += widgets
+QT += core gui  widgets  multimedia

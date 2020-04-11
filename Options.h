@@ -16,6 +16,7 @@ class OptionsPage : public QMainWindow
 public:
 	OptionsPage(QWidget *parent = nullptr);
 	~OptionsPage();
+	int volume;
 private:
 	QWidget *centralWidget;
 	QVBoxLayout *mainLayout;
@@ -28,5 +29,7 @@ private:
 	QRadioButton *FPS30;
 	QRadioButton *FPS60;
 	QPushButton *okButton;
+public slots:
+	void adjustVolume();
 
 };

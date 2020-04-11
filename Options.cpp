@@ -11,6 +11,7 @@ OptionsPage::OptionsPage(QWidget *parent) : QMainWindow(parent)
 	volumeLabel = new QLabel();
 	volumeLabel->setText("<font color='blue'>Volume</font>");
 	volumeSlider = new QSlider(Qt::Horizontal);
+	QObject::connect(volumeSlider, SIGNAL(valueChanged()), this, SLOT(adjustVolume()));
 	sensitivityLabel = new QLabel();
 	sensitivityLabel->setText("<font color='blue'>Microphone sensitivity</font>");
 	sensitivitySlider = new QSlider(Qt::Horizontal);
@@ -59,4 +60,9 @@ OptionsPage::~OptionsPage()
 	delete okButton;
 	delete mainLayout;
 	delete centralWidget;
+}
+
+void OptionsPage::adjustVolume()
+{
+	volume = int(volumeSlider->value());
 }
