@@ -39,16 +39,17 @@ void GamePage::drawMap()
 			{
 			case MAP:
 				tile->setPixmap(QPixmap("Images/Floor.jpg"));
-				cout << "adding a map tile at position : (" << PIX_WIDTH * j << ", " << PIX_HEIGHT * i << ")\n";
+				tile->setPos(PIX_WIDTH * j, PIX_HEIGHT * i);
+				scene->addItem(tile);
 				break;
 			case LADDER:
 				tile->setPixmap(QPixmap("Images/Ladder.jpg"));
+				tile->setPos(PIX_WIDTH * j, PIX_HEIGHT * i);
+				scene->addItem(tile);
 				break;
 			default:
 				break;
 			}
-			tile->setPos(PIX_WIDTH * j, PIX_HEIGHT * i);
-			scene->addItem(tile);
 		}
 	}
 	mainGame.getMario()->setFlag(QGraphicsItem::ItemIsFocusable);
@@ -63,9 +64,6 @@ void GamePage::drawMap()
 
 void GamePage::refresh()
 {
-	// verifier si il y a une platefrome sous mario, si oui ne pas tomber
-	if (mainGame.getMario()->isColliding()) mainGame.getMario()->land();
-
 	// updater la position de mario
 	mainGame.getMario()->updatePosition();
 

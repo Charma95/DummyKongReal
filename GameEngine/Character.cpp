@@ -13,7 +13,7 @@ Character::Character(int positionX, int positionY, QPixmap pixmap) : QGraphicsPi
 	setPixmap(pixmap);
 	position.x = positionX;
 	position.y = positionY;
-	setPos(positionX * PIX_WIDTH, 1 * PIX_HEIGHT - 26);
+	setPos(positionX * PIX_WIDTH, (MAX_HEIGHT - 2) * PIX_HEIGHT - 26);
 	jumping = false;
 	falling = false;
 	jumpingState = 0;
@@ -157,10 +157,22 @@ void Character::land()
 
 void Character::updatePosition()
 {
-	//cout << "pos x : " << x() << " pos y : " << y() << endl;
-	setPos(x() + DT * currentVelocity.x, y() + DT * currentVelocity.y);
-	if (!isColliding()) currentVelocity.y = currentVelocity.y + DT * G;
-	//else replaceOnTopOfObject();
+	float newXPos = 0, newYPos = 0;
+	if (x() + DT * currentVelocity.x > 0 && x() + DT * currentVelocity.x < PIX_WIDTH * MAX_WIDTH) newXPos = x() + DT * currentVelocity.x;
+	else newXPos = x();
+	newYPos = y() + DT * currentVelocity.y;
+	setPos(newXPos, newYPos);
+
+	// verifier si il y a une platefrome sous mario, si oui ne pas tomber
+	if (isColliding())
+	{
+		if (currentVelocity.y > 0) land();
+		else hitHead();
+	}
+	else
+	{
+		currentVelocity.y = currentVelocity.y + DT * G;
+	}
 }
 
 bool Character::forward()
@@ -190,6 +202,11 @@ void Character::replaceOnTopOfObject()
 	int dy = posY % PIX_HEIGHT;
 
 	setPos(x(), posY - dy);
+}
+
+void Character::hitHead()
+{
+	currentVelocity.y = -1 * currentVelocity.y;
 }
 
 

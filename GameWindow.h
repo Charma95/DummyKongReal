@@ -11,7 +11,6 @@
 #include <QGraphicsPixmapItem>
 #include "GameEngine/Character.h"
 #include <QTimer>
-#include "box2d-master/include/box2d/box2d.h"
 
 class GamePage : public QGraphicsView
 {

@@ -12,9 +12,8 @@ Description : D�claration de la classe Character
 #include "Hammer.h"
 #include <QGraphicsPixmapItem>
 #include <QKeyEvent>
-#include "box2d-master/include/box2d/box2d.h"
 
-#define JUMPFORCE 5000
+#define JUMPFORCE 500
 #define RUNSPEED 300
 #define G 1000
 #define DT 0.01
@@ -76,4 +75,5 @@ public:
 	bool backward();
 	bool jump();
 	void replaceOnTopOfObject();
+	void hitHead();
 };
