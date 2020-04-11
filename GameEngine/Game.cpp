@@ -55,56 +55,8 @@ bool Game::refresh()
 	system("cls");
 	player.readController();
 
-	if (mario->getLifeCount() == 0)
-	{
-		//game over
-		cout << "==============================" << endl;
-		cout << "GAME OVER!" << endl;
-		cout << "==============================" << endl;
-		cout << "Press START to exit" << endl;
-		cout << "==============================" << endl;
-		if (player.getPlayer().BTN_START == 1)
-		{
-			exit(EXIT_SUCCESS);
-		}
-	}
-	else if (isPaused)
-	{
-		// menu pause
-		cout << "==============================" << endl;
-		cout << "PAUSE MENU" << endl;
-		cout << "==============================" << endl;
-		cout << "A/Enter - Reprendre" << endl;
-		cout << "B/Esc - Quitter" << endl;
-		cout << "==============================" << endl;
-
-		if (player.getPlayer().BTN_A == 1)
-		{
-			start();
-		}
-		if (player.getPlayer().BTN_B == 1)
-		{
-			exit(EXIT_SUCCESS);
-		}
-		if (player.getPlayer().BTN_START == 1)
-		{
-			start();
-		}
-	}
-	else if (level->isComplete())
-	{
-		cout << "==============================" << endl;
-		cout << "YOU WON!" << endl;
-		cout << "==============================" << endl;
-		cout << "Press START to exit" << endl;
-		cout << "==============================" << endl;
-		if (player.getPlayer().BTN_START == 1)
-		{
-			exit(EXIT_SUCCESS);
-		}
-	}
 	// VOIR POUR DE LA SURCHARGE D'OPERATEURS
-	else if (mario->getPosition().x == level->getHammer().getPosition().x && mario->getPosition().y == level->getHammer().getPosition().y && !level->getHammer().isAttached()) {
+	if (mario->getPosition().x == level->getHammer().getPosition().x && mario->getPosition().y == level->getHammer().getPosition().y && !level->getHammer().isAttached()) {
 		mario->attachHammer(level->getHammerPtr());
 	}
 	else
@@ -153,7 +105,6 @@ bool Game::refresh()
 		if (level->checkAroundPlayer(mario->getPosition().x, mario->getPosition().y, PEACH)) level->completeLevel();
 
 		//showLevel(); // enlever des commentaires si on veut tester l'application console
-		
 	}
 
 	return true;
@@ -185,13 +136,11 @@ void Game::setMario(int setup)
 		case 1: 
 			if (!done)
 			{
-				Sleep(80);
 				mario->setPixmap(QPixmap("sprites/sprites/Mario/mario5.png"));
 				done = true;
 			}
 			else
 			{
-				Sleep(80);
 				mario->setPixmap(QPixmap("sprites/sprites/Mario/mario6.png"));
 				done = false;
 			}
@@ -199,13 +148,11 @@ void Game::setMario(int setup)
 		case 2:
 			if (!done)
 			{
-				Sleep(80);
 				mario->setPixmap(QPixmap("sprites/sprites/Mario/mario1.png"));
 				done = true;
 			}
 			else
 			{
-				Sleep(80);
 				mario->setPixmap(QPixmap("sprites/sprites/Mario/mario2.png"));
 				done = false;
 			}

@@ -66,7 +66,6 @@ void MainWindow::showLevelsPage()
 
 void MainWindow::showHomePage()
 {
-
 	gamePage = nullptr;
 	setupUI();
 }
@@ -74,8 +73,10 @@ void MainWindow::showHomePage()
 void MainWindow::showGamePage()
 {
 	gamePage = new GamePage();
+	QObject::connect(gamePage, SIGNAL(escPressed()), this, SLOT(showHomePage()));
 	setCentralWidget(gamePage);
 }
+
 /* ***********************************************************
 * save level in a .log file stored in the project
 *
@@ -149,7 +150,6 @@ void MainWindow::initMenus()
 	QObject::connect(saveAction, SIGNAL(triggered()), this, SLOT(saveLevel()));
 	homeAction = new QAction("Home");
 	QObject::connect(homeAction, SIGNAL(triggered()), this, SLOT(showHomePage())); 
-	QObject::connect(gamePage,SIGNAL(escPressed()), this, SLOT(showHomePage()));
 	quitAction = new QAction("Quit");
 	level1Action = new QAction("Level 1");
 	level2Action = new QAction("Level 2");

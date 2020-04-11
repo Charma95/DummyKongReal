@@ -14,10 +14,9 @@ GamePage::GamePage(QWidget *parent) : QGraphicsView(parent)
 
 	setScene(scene);
 
-	t1 = new timer([&]() {
-
-		refresh();
-	}, 100);
+	timer1 = new QTimer();
+	QObject::connect(timer1, SIGNAL(timeout()), this, SLOT(refresh()));
+	timer1->start(10);
 
 }
 
@@ -25,7 +24,7 @@ GamePage::~GamePage()
 {
 	cout << "destructeur de gamePage\n";
 	delete scene;
-	delete t1;
+	delete timer1;
 }
 
 void GamePage::drawMap()
@@ -35,10 +34,12 @@ void GamePage::drawMap()
 		for (int j = 0; j < MAX_WIDTH; j++)
 		{
 			QGraphicsPixmapItem *tile = new QGraphicsPixmapItem();
+			
 			switch (mainGame.getLevel()->getMap(i, j))
 			{
 			case MAP:
 				tile->setPixmap(QPixmap("Images/Floor.jpg"));
+				cout << "adding a map tile at position : (" << PIX_WIDTH * j << ", " << PIX_HEIGHT * i << ")\n";
 				break;
 			case LADDER:
 				tile->setPixmap(QPixmap("Images/Ladder.jpg"));
@@ -62,42 +63,44 @@ void GamePage::drawMap()
 
 void GamePage::refresh()
 {
-	mainGame.refresh();
+	// verifier si il y a une platefrome sous mario, si oui ne pas tomber
+	if (mainGame.getMario()->isColliding()) mainGame.getMario()->land();
+
+	// updater la position de mario
+	mainGame.getMario()->updatePosition();
+
 }
 
 void GamePage::marioRunRight()
 {
 	mainGame.setMario(RIGHT);
-	mainGame.getMario()->setPos(mainGame.getMario()->x() + 10, mainGame.getMario()->y());
+	mainGame.getMario()->setPos(mainGame.getMario()->x() + 20, mainGame.getMario()->y());
 }
 
 void GamePage::marioRunLeft()
 {
 	mainGame.setMario(LEFT);
-	mainGame.getMario()->setPos(mainGame.getMario()->x() - 10, mainGame.getMario()->y());
+	mainGame.getMario()->setPos(mainGame.getMario()->x() - 20, mainGame.getMario()->y());
 }
 
 void GamePage::marioJump()
 {
 	//mainGame.setMario(HIGH);
-	mainGame.getMario()->setPos(mainGame.getMario()->x() - 10, mainGame.getMario()->y() + 5);
+	mainGame.getMario()->setPos(mainGame.getMario()->x(), mainGame.getMario()->y() + 5);
 }
 
 void GamePage::keyPressEvent(QKeyEvent *event) 
 {
-	qDebug("allo");
 	// move the player left and right
 	if (event->key() == Qt::Key_A)
 	{
-		qDebug("gauche\n");
 		if (mainGame.getMario()->pos().x() > 0)
-			marioRunLeft();
+			mainGame.getMario()->backward();
 	}
 	else if (event->key() == Qt::Key_D) 
 	{
-		qDebug("Droite\n");
-		if (mainGame.getMario()->pos().x() + 48 < PIX_WIDTH * MAX_WIDTH);
-		marioRunRight();
+		if (mainGame.getMario()->pos().x() + 48 < PIX_WIDTH * MAX_WIDTH)
+			mainGame.getMario()->forward();
 	}
 	else if (event->key() == Qt::Key_Escape)
 	{
@@ -105,6 +108,6 @@ void GamePage::keyPressEvent(QKeyEvent *event)
 	}
 	else if (event->key() == Qt::Key_Space)
 	{
-		marioJump();
+		mainGame.getMario()->jump();
 	}
 }

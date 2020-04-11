@@ -13,13 +13,15 @@ Character::Character(int positionX, int positionY, QPixmap pixmap) : QGraphicsPi
 	setPixmap(pixmap);
 	position.x = positionX;
 	position.y = positionY;
-	setPos(positionX * PIX_WIDTH, positionY * PIX_HEIGHT - 26);
+	setPos(positionX * PIX_WIDTH, 1 * PIX_HEIGHT - 26);
 	jumping = false;
 	falling = false;
 	jumpingState = 0;
 	lifePoints = 100;
 	lifeCount = 5;
 	hammer = nullptr;
+	currentVelocity.x = 0;
+	currentVelocity.y = 0;
 }
 
 Character::Character(const Character &character2)
@@ -64,37 +66,12 @@ void Character::setName(string newName)
 	name = newName;
 }
 
-bool Character::jump()
-{
-	jumpingState++;
-	position.y--;
-	if (jumpingState == 3)
-	{
-		jumpingState = 0;
-	}
-	//else jump();
-
-	return true;
-}
-
 Coordonnees Character::getPosition()
 {
 	return position;
 }
 
-bool Character::forward()
-{
-	position.x++;
-	setPos(getPosition().x + 10, getPosition().y);
-	return true;
-}
 
-bool Character::backward()
-{
-	position.x--;
-	setPos(getPosition().x - 10, getPosition().y);
-	return true;
-}
 
 bool Character::climb()
 {
@@ -164,3 +141,55 @@ void Character::attachHammer(Hammer *gameHammer) {
 	gameHammer->attach();
 	hammer = gameHammer;
 }
+
+bool Character::isColliding()
+{
+	if (collidingItems().length() != 0) return true;
+	else return false;
+}
+
+void Character::land()
+{
+	currentVelocity.y = 0;
+	int posY = y();
+	if (isColliding() && posY % (PIX_HEIGHT/2) != 0) replaceOnTopOfObject();
+}
+
+void Character::updatePosition()
+{
+	//cout << "pos x : " << x() << " pos y : " << y() << endl;
+	setPos(x() + DT * currentVelocity.x, y() + DT * currentVelocity.y);
+	if (!isColliding()) currentVelocity.y = currentVelocity.y + DT * G;
+	//else replaceOnTopOfObject();
+}
+
+bool Character::forward()
+{
+	currentVelocity.x = RUNSPEED;
+	if (currentVelocity.x > RUNSPEED) currentVelocity.x = RUNSPEED;
+	return true;
+}
+
+bool Character::backward()
+{
+	currentVelocity.x = -1 * RUNSPEED;
+	if (currentVelocity.x < -1 * RUNSPEED) currentVelocity.x = -1 * RUNSPEED;
+	return true;
+}
+
+bool Character::jump()
+{
+	currentVelocity.y -= JUMPFORCE;
+
+	return true;
+}
+
+void Character::replaceOnTopOfObject()
+{
+	int posY = y();
+	int dy = posY % PIX_HEIGHT;
+
+	setPos(x(), posY - dy);
+}
+
+

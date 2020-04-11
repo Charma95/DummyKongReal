@@ -10,6 +10,8 @@
 #include <qdebug.h>
 #include <QGraphicsPixmapItem>
 #include "GameEngine/Character.h"
+#include <QTimer>
+#include "box2d-master/include/box2d/box2d.h"
 
 class GamePage : public QGraphicsView
 {
@@ -18,16 +20,21 @@ public:
 	GamePage(QWidget *parent = nullptr);
 	~GamePage();
 	void drawMap();
-	void refresh();
 	void keyPressEvent(QKeyEvent *event);
 	void marioRunRight();
 	void marioRunLeft();
 	void marioJump();
+public slots:
+	void refresh();
+
 signals:
 	void escPressed();
+
 
 private:
 	Game mainGame;
 	timer *t1;
+	QTimer *timer1;
+	QTimer *fallTimer;
 	QGraphicsScene *scene;
 };

@@ -12,12 +12,22 @@ Description : D�claration de la classe Character
 #include "Hammer.h"
 #include <QGraphicsPixmapItem>
 #include <QKeyEvent>
+#include "box2d-master/include/box2d/box2d.h"
 
-#define G 3
+#define JUMPFORCE 5000
+#define RUNSPEED 300
+#define G 1000
+#define DT 0.01
 #define PIX_WIDTH 50
 #define PIX_HEIGHT 50
 
 using namespace std;
+
+struct vector2
+{
+	float x;
+	float y;
+};
 
 class Character : public QGraphicsPixmapItem
 {
@@ -30,6 +40,7 @@ private:
 	bool falling;
 	int jumpingState;
 	Hammer *hammer;
+	vector2 currentVelocity;
 
 public:
 	Character(int positionX = 1, int positionY = MAX_HEIGHT - 2, QPixmap pixmap = QPixmap(""));
@@ -42,14 +53,11 @@ public:
 	string getName();
 	void setName(string newName);
 	Coordonnees getPosition();
-	bool forward();
-	bool backward();
 	bool climb();
 	bool hit();
 	void goUp();
 	void goDown();
 
-	bool jump();
 	bool fall();
 	bool isFalling();
 	bool isJumping();
@@ -60,4 +68,12 @@ public:
 	void gainLifePoints(int lifePts);
 	void attachHammer(Hammer *gameHammer);
 
+	// new code for movement
+	bool isColliding();
+	void land();
+	void updatePosition();
+	bool forward();
+	bool backward();
+	bool jump();
+	void replaceOnTopOfObject();
 };
