@@ -29,16 +29,20 @@ Level::Level(int level)
 		for (int i = 0; i < MAX_WIDTH; i++)
 		{
 			map[MAX_HEIGHT - 1][i] = MAP;
-			map[MAX_HEIGHT - 4][i] = MAP;
-			map[MAX_HEIGHT - 8][i] = MAP;
-			map[MAX_HEIGHT - 12][i] = MAP;
+			if (i > 8) map[MAX_HEIGHT - 5][i] = MAP;
+			if (i < MAX_WIDTH - 8) map[MAX_HEIGHT - 10][i] = MAP;
+			if (i > 8) map[MAX_HEIGHT - 15][i] = MAP;
 		}
 
-		//échelle
-		for (int i = MAX_HEIGHT - 2; i >= MAX_HEIGHT - 4; i--)
-		{
-			map[i][MAX_WIDTH - 4] = LADDER;
-		}
+		//échelle 1
+		for (int i = MAX_HEIGHT - 2; i >= MAX_HEIGHT - 4; i--) map[i][MAX_WIDTH - 8] = LADDER;
+
+		//échelle 2
+		for (int i = MAX_HEIGHT - 6; i >= MAX_HEIGHT - 9; i--) map[i][MAX_WIDTH - 20] = LADDER;
+
+		//échelle 3
+		for (int i = MAX_HEIGHT - 11; i >= MAX_HEIGHT - 14; i--) map[i][MAX_WIDTH - 10] = LADDER;
+		
 		break;
 	case 2:
 		break;

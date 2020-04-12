@@ -10,8 +10,5 @@ class Tile : public QGraphicsPixmapItem
 public:
 	Tile();
 	~Tile();
-	int getState();
-	void setState(int newState);
 private:
-	int state;
 };

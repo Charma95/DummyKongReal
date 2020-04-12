@@ -11,6 +11,9 @@
 #include <QGraphicsPixmapItem>
 #include "GameEngine/Character.h"
 #include <QTimer>
+#include <qgraphicsitem.h>
+#include <QGraphicsItemGroup>
+
 
 class GamePage : public QGraphicsView
 {
@@ -20,6 +23,7 @@ public:
 	~GamePage();
 	void drawMap();
 	void keyPressEvent(QKeyEvent *event);
+	void keyReleaseEvent(QKeyEvent *event);
 	void marioRunRight();
 	void marioRunLeft();
 	void marioJump();

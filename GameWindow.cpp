@@ -33,19 +33,21 @@ void GamePage::drawMap()
 	{
 		for (int j = 0; j < MAX_WIDTH; j++)
 		{
-			QGraphicsPixmapItem *tile = new QGraphicsPixmapItem();
+			Tile *t;
+			Ladder *l;
 			
 			switch (mainGame.getLevel()->getMap(i, j))
 			{
 			case MAP:
-				tile->setPixmap(QPixmap("Images/Floor.jpg"));
-				tile->setPos(PIX_WIDTH * j, PIX_HEIGHT * i);
-				scene->addItem(tile);
+				t = new Tile();
+				t->setPos(PIX_WIDTH * j, PIX_HEIGHT * i);
+				t->setVisible(true);
+				scene->addItem(t);
 				break;
 			case LADDER:
-				tile->setPixmap(QPixmap("Images/Ladder.jpg"));
-				tile->setPos(PIX_WIDTH * j, PIX_HEIGHT * i);
-				scene->addItem(tile);
+				l = new Ladder();
+				l->setPos(PIX_WIDTH * j, PIX_HEIGHT * i);
+				scene->addItem(l);
 				break;
 			default:
 				break;
@@ -107,5 +109,25 @@ void GamePage::keyPressEvent(QKeyEvent *event)
 	else if (event->key() == Qt::Key_Space)
 	{
 		mainGame.getMario()->jump();
+	}
+	else if (event->key() == Qt::Key_W)
+	{
+		mainGame.getMario()->climbUp();
+	}
+	else if (event->key() == Qt::Key_S)
+	{
+		mainGame.getMario()->climbDown();
+	}
+}
+
+void GamePage::keyReleaseEvent(QKeyEvent *event)
+{
+	if (event->key() == Qt::Key_A || event->key() == Qt::Key_D)
+	{
+		mainGame.getMario()->stop();
+	}
+	else if (event->key() == Qt::Key_W || event->key() == Qt::Key_S)
+	{
+		mainGame.getMario()->stopClimbing();
 	}
 }

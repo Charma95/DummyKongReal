@@ -1,7 +1,8 @@
 #include "Tile.h"
 
-Tile::Tile()
+Tile::Tile() : QGraphicsPixmapItem()
 {
+	setPixmap(QPixmap("Images/Floor.jpg"));
 
 }
 
@@ -10,12 +11,4 @@ Tile::~Tile()
 
 }
 
-int Tile::getState()
-{
-	return state;
-}
 
-void Tile::setState(int newState)
-{
-	state = newState;
-}

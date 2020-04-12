@@ -144,6 +144,7 @@
     <ClCompile Include="GameEngine\Hammer.cpp" />
     <ClCompile Include="Help.cpp" />
     <ClCompile Include="GameEngine\Level.cpp" />
+    <ClCompile Include="Ladder.cpp" />
     <ClCompile Include="Levels.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="GameEngine\Movement.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="GameEngine\Barrel.h" />
     <ClInclude Include="GameEngine\Character.h" />
     <ClInclude Include="GameEngine\Game.h" />
+    <ClInclude Include="Ladder.h" />
     <ClInclude Include="Tile.h" />
     <CustomBuild Include="GameWindow.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">GameWindow.h;release\moc_predefs.h;C:\Qt\5.14.2\msvc2017_64\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
