@@ -1,19 +1,20 @@
 /*
-Auteur: �quipe p-02
+Auteur: Equipe p-02
 Fichier: Character.h
-Date : 9 f�vrier 2020
-Description : D�claration de la classe Character
+Date : 9 fevrier 2020
+Description : Declaration de la classe Character
 */
 
 #pragma once
 #include <string>
 #include "Level.h"
-#include "timer.h"
-#include "Hammer.h"
+
 #include <QGraphicsPixmapItem>
+#include <qmessagebox.h>
 #include <QKeyEvent>
 #include "Tile.h"
 #include "Ladder.h"
+#include "Pauline.h"
 
 #define JUMPFORCE 500
 #define RUNSPEED 300
@@ -48,11 +49,9 @@ private:
 	int lifePoints;
 	int lifeCount;
 	string name;
-	Coordonnees position;
 	bool jumping;
 	bool falling;
 	int jumpingState;
-	Hammer *hammer;
 	vector2 currentVelocity;
 	vector<QPixmap> nothingVector;
 	vector<QPixmap> runningLeftVector;
@@ -74,7 +73,6 @@ public:
 	void setLifeCount(int newLifeCount);
 	string getName();
 	void setName(string newName);
-	Coordonnees getPosition();
 	bool climb();
 	bool hit();
 	void goUp();
@@ -88,11 +86,12 @@ public:
 
 	void takeDamage(int dmg);
 	void gainLifePoints(int lifePts);
-	void attachHammer(Hammer *gameHammer);
+
 
 	// new code for movement
 	bool isCollidingWithTile();
 	bool isCollidingWithLadder();
+	bool isCollidingWithPauline();
 	void land();
 	void updatePosition();
 	bool forward();

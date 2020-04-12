@@ -1,6 +1,14 @@
+/*
+Auteur: Equipe p-02
+Fichier: XController.cpp
+Date : 9 fevrier 2020
+Description : Implementation des methodes de la classe XController
+*/
 #include "XController.h"
 #include <Xinput.h>
-#pragma comment(lib,"Xinput.lib") /* Don't erase that line, it might fuck up erraything */
+/* Don't erase that line */
+#pragma comment(lib,"Xinput.lib") 
+/* ------------------------------- */
 
 
 XController::XController()

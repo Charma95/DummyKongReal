@@ -1,15 +1,21 @@
+/*
+@Auteur: Equipe p-02
+@Fichier: GameWindow.h
+@Date : 9 fevrier 2020
+@Brief : Declaration de la classe GameWindow
+*/
 #pragma once
 
 #include <qwidget.h>
 #include <qlayout.h>
 #include <qlabel.h>
 #include "GameEngine/Game.h"
-#include "GameEngine/timer.h"
 #include <QGraphicsScene>
 #include <qgraphicsview.h>
 #include <qdebug.h>
 #include "Options.h"
 #include <QGraphicsPixmapItem>
+#include <qmessagebox.h>
 #include "GameEngine/Character.h"
 #include <QTimer>
 #include <QMediaPlayer>
@@ -37,7 +43,6 @@ signals:
 
 private:
 	Game *mainGame;
-	timer *t1;
 	QTimer *timer1;
 	QGraphicsScene *scene;
 	QMediaPlayer *themesong;

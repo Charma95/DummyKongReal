@@ -1,3 +1,9 @@
+/*
+Auteur: Equipe p-02
+Fichier: main.cpp
+Date : 9 fevrier 2020
+Description : Implementation du fichier main
+*/
 #include "MainWindow.h"
 #include "GameEngine/Game.h"
 #include "GameEngine/XController.h"

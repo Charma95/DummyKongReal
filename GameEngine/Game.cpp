@@ -54,61 +54,9 @@ bool Game::refresh()
 {
 	system("cls");
 	player.readController();
-
-	// VOIR POUR DE LA SURCHARGE D'OPERATEURS
-	if (mario->getPosition().x == level->getHammer().getPosition().x && mario->getPosition().y == level->getHammer().getPosition().y && !level->getHammer().isAttached()) {
-		mario->attachHammer(level->getHammerPtr());
-	}
-	else
-	{
-		// jeu
-		if (player.getPlayer().BTN_START == 1)
-		{
-			pause();
-		}
-		if (player.getPlayer().left_Trigger == 1)
-		{
-			mario->takeDamage(10);
-		}
-		if (player.getPlayer().right_Trigger == 1)
-		{
-			mario->gainLifePoints(10);
-		}
-		if (MOVE_LEFT == -1)
-		{
-			if (mario->getPosition().x > 0) mario->backward();
-		}
-		if (MOVE_RIGHT == 1)
-		{
-			if (mario->getPosition().x < MAX_WIDTH-1) mario->forward();
-		}
-		if (MOVE_UP == 1)
-		{
-			if (level->getMap(mario->getPosition().y, mario->getPosition().x) == LADDER) mario->climb();
-		}
-		if (MOVE_DOWN == -1)
-		{
-			if (level->getMap(mario->getPosition().y + 1, mario->getPosition().x) == LADDER) mario->fall();
-		}
-		if (mario->getJumpingState() == 0 && level->getMap(mario->getPosition().y + 1, mario->getPosition().x) == AIR) mario->fall();
-
-		if (JUMP == 1)
-		{
-			if (mario->getJumpingState() == 0 && level->getMap(mario->getPosition().y + 1, mario->getPosition().x) == MAP) mario->jump();
-		}
-		if (level->getMap(mario->getPosition().y - 1, mario->getPosition().x) != AIR)
-		{
-			mario->setJumpingState(0);
-		}
-		else if (mario->getJumpingState() != 0) mario->jump();
-		
-		if (level->checkAroundPlayer(mario->getPosition().x, mario->getPosition().y, PAULINE)) level->completeLevel();
-
-		//showLevel(); // enlever des commentaires si on veut tester l'application console
-	}
-
 	return true;
-}
+	}
+
 
 bool Game::pause()
 {
@@ -129,36 +77,7 @@ Character* Game::getMario()
 
 void Game::setMario(int setup)
 {
-	
-	switch (setup)
-	{
-		/* Run right*/
-		case 1: 
-			if (!done)
-			{
-				mario->setPixmap(QPixmap("sprites/sprites/Mario/mario5.png"));
-				done = true;
-			}
-			else
-			{
-				mario->setPixmap(QPixmap("sprites/sprites/Mario/mario6.png"));
-				done = false;
-			}
-		break;
-		case 2:
-			if (!done)
-			{
-				mario->setPixmap(QPixmap("sprites/sprites/Mario/mario1.png"));
-				done = true;
-			}
-			else
-			{
-				mario->setPixmap(QPixmap("sprites/sprites/Mario/mario2.png"));
-				done = false;
-			}
-			break;
-	}
-	
+		
 }
 
 Character Game::getDummyKong()
@@ -168,44 +87,8 @@ Character Game::getDummyKong()
 
 void Game::showLevel()
 {
-	for (int i = 0; i < MAX_HEIGHT; i++)
-	{
-		for (int j = 0; j < MAX_WIDTH; j++)
-		{
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
-			if (i == mario->getPosition().y && j == mario->getPosition().x) cout << "M";
-			else if (level->getMap(i, j) == AIR)
-			{
-				cout << " ";
-			}
-			else if (level->getMap(i, j) == MAP)
-			{
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
-				cout << "#";
-			}
-			else if (level->getMap(i, j) == LADDER)
-			{
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-				cout << "H";
-			}
-			else if (level->getMap(i, j) == PAULINE)
-			{
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 5);
-				cout << "P";
-			}
-			else if (level->getMap(i, j) == HAMMER && !level->getHammer().isAttached()) {
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
-				cout << "T";
-			}
-			else {
-				cout << " ";	// REMPLACE LE MARTEAU PAR DE L'AIR LORSQU'IL EST RAMASSE, POURRAIT ETRE CHANGER DANS LA MAP DIRECTEMENT
-			}
-		}
-		cout << endl;
-	}
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-	cout << "Life Points : " << mario->getLifePoints() << endl;
-	cout << "Life count : " << mario->getLifeCount() << endl;
+
+
 }
 
 Level* Game::getLevel()

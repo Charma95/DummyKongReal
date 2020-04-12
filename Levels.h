@@ -1,6 +1,11 @@
+/*
+@Auteur: Equipe p-02
+@Fichier: Levels.h
+@Date : 9 fevrier 2020
+@Brief : Declaration de la classe Levels
+*/
 #pragma once
 
-//#include "MainWindow.h"
 #include <qwidget.h>
 #include <qlayout.h>
 #include <qpushbutton.h>

@@ -8,7 +8,7 @@ Description : Déclaration de la classe Level
 #pragma once
 
 #include <iostream>
-#include "Hammer.h"
+
 
 using namespace std;
 
@@ -27,7 +27,7 @@ private:
 	int map[MAX_HEIGHT][MAX_WIDTH] = { 0 };
 	int index;
 	bool complete;
-	Hammer *hammer;
+
 
 public:
 	Level(int level = 1);
@@ -35,8 +35,7 @@ public:
 
 	unsigned char getDifficulty();
 	int getMap(int i, int j);
-	Hammer getHammer();
-	Hammer* getHammerPtr();
+
 	void setDifficulty(unsigned char newDifficulty);
 
 	void update();

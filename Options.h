@@ -1,3 +1,9 @@
+/*
+@Auteur: Equipe p-02
+@Fichier: Options.h
+@Date : 5 avril 2020
+@Brief : Declaration de la classe Options
+*/
 #pragma once
 
 #include <qmainwindow.h>

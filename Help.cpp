@@ -1,6 +1,11 @@
+/*
+Auteur: Equipe p-02
+Fichier: Help.cpp
+Date : 9 fevrier 2020
+Description : Implementation des methodes de la classe Help
+*/
+
 #include "Help.h"
-
-
 
 HelpPage::HelpPage(QWidget *parent)
 	:QMainWindow(parent)

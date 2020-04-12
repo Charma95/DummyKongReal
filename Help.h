@@ -1,3 +1,9 @@
+/*
+@Auteur: Equipe p-02
+@Fichier: Help.h
+@Date : 9 fevrier 2020
+@Brief : Declaration de la classe Help
+*/
 #pragma once
 
 #include <QMainWindow>

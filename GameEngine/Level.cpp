@@ -9,7 +9,7 @@ Description : Implémentation des méthodes de la classe Level
 
 Level::Level(int level)
 {
-	hammer = new Hammer(10, MAX_HEIGHT - 2);
+	
 	index = level;
 	complete = false;
 
@@ -42,6 +42,7 @@ Level::Level(int level)
 
 		//échelle 3
 		for (int i = MAX_HEIGHT - 11; i >= MAX_HEIGHT - 14; i--) map[i][MAX_WIDTH - 10] = LADDER;
+
 		// Pauline
 		map[MAX_HEIGHT - 16][MAX_WIDTH - 4] = PAULINE;
 		break;
@@ -68,6 +69,9 @@ Level::Level(int level)
 
 		//échelle 1
 		for (int i = MAX_HEIGHT - 11; i >= MAX_HEIGHT - 14; i--) map[i][MAX_WIDTH - 24] = LADDER;
+
+		// Pauline 
+		map[MAX_HEIGHT - 16][MAX_WIDTH - 4] = PAULINE;
 		break;
 	case 3:
 		//fond de la map
@@ -96,6 +100,9 @@ Level::Level(int level)
 
 		//échelle 3
 		for (int i = MAX_HEIGHT - 11; i >= MAX_HEIGHT - 14; i--) map[i][MAX_WIDTH - 12] = LADDER;
+
+		// Pauline
+		map[MAX_HEIGHT - 16][MAX_WIDTH - 4] = PAULINE;
 		break;
 	default:
 		//fond de la map
@@ -124,6 +131,9 @@ Level::Level(int level)
 
 		//échelle 3
 		for (int i = MAX_HEIGHT - 11; i >= MAX_HEIGHT - 14; i--) map[i][MAX_WIDTH - 12] = LADDER;
+
+		//Pauline 
+		map[MAX_HEIGHT - 16][MAX_WIDTH - 4] = PAULINE;
 		break;
 	}
 }
@@ -144,13 +154,7 @@ void Level::setDifficulty(unsigned char newDifficulty)
 	difficulty = newDifficulty;
 }
 
-Hammer Level::getHammer() {
-	return *hammer;
-}
 
-Hammer* Level::getHammerPtr() {
-	return hammer;
-}
 
 void Level::update()
 {

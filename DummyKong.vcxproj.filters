@@ -27,9 +27,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GameEngine\Barrel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GameEngine\Character.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -37,9 +34,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngine\Hammer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Help.cpp">
@@ -66,23 +60,20 @@
     <ClCompile Include="Tile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameEngine\Tool.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GameEngine\XController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameEngine\timer.cpp">
+    <ClCompile Include="Pauline.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DummyKong\DummyKong\DummyKong\GameEngine\timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameEngine\Barrel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameEngine\Character.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -92,9 +83,6 @@
     <CustomBuild Include="GameWindow.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <ClInclude Include="GameEngine\Hammer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <CustomBuild Include="Help.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -119,13 +107,13 @@
     <ClInclude Include="Tile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngine\Tool.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameEngine\XController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngine\timer.h">
+    <ClInclude Include="Pauline.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DummyKong\DummyKong\DummyKong\GameEngine\timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

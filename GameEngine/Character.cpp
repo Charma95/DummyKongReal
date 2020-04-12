@@ -1,8 +1,8 @@
 /*
-Auteur: �quipe p-02
+Auteur: Equipe p-02
 Fichier: Character.cpp
-Date : 9 f�vrier 2020
-Description : Impl�mentation des m�thodes de la classe Character
+Date : 9 fevrier 2020
+Description : Implementation des methodes de la classe Character
 */
 
 #include "Character.h"
@@ -31,15 +31,13 @@ Character::Character(int positionX, int positionY, QPixmap pixmap) : QGraphicsPi
 	animationState = NOTHING;
 
 	setPixmap(pixmap);
-	position.x = positionX;
-	position.y = positionY;
 	setPos(positionX * PIX_WIDTH, (MAX_HEIGHT - 2) * PIX_HEIGHT - 26);
 	jumping = false;
 	falling = false;
 	jumpingState = 0;
 	lifePoints = 100;
 	lifeCount = 5;
-	hammer = nullptr;
+
 	currentVelocity.x = 0;
 	currentVelocity.y = 0;
 	climbing = false;
@@ -47,13 +45,13 @@ Character::Character(int positionX, int positionY, QPixmap pixmap) : QGraphicsPi
 
 Character::Character(const Character &character2)
 {
-	hammer = character2.hammer;
+
 }
 
 
 Character::~Character()
 {
-	if (hammer != nullptr) delete hammer;
+
 }
 
 
@@ -87,24 +85,7 @@ void Character::setName(string newName)
 	name = newName;
 }
 
-Coordonnees Character::getPosition()
-{
-	return position;
-}
 
-
-
-bool Character::climb()
-{
-	position.y--;
-	return true;
-}
-
-bool Character::fall()
-{
-	position.y++;
-	return true;
-}
 
 bool Character::hit()
 {
@@ -121,15 +102,7 @@ bool Character::isFalling()
 	return falling;
 }
 
-void Character::goUp()
-{
-	position.y--;
-}
 
-void Character::goDown()
-{
-	position.y++;
-}
 
 int Character::getJumpingState()
 {
@@ -158,10 +131,7 @@ void Character::gainLifePoints(int lifePts)
 	if (lifePoints + lifePts <= 100) lifePoints += lifePts;
 }
 
-void Character::attachHammer(Hammer *gameHammer) {
-	gameHammer->attach();
-	hammer = gameHammer;
-}
+
 
 bool Character::isCollidingWithTile()
 {
@@ -181,6 +151,24 @@ bool Character::isCollidingWithLadder()
 		Ladder * item = dynamic_cast<Ladder *>(i);
 		if (item)
 		{
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Character::isCollidingWithPauline()
+{
+	for (QGraphicsItem* i : collidingItems()) {
+		Pauline * item = dynamic_cast<Pauline *>(i);
+		if (item)
+		{
+			QMessageBox win;
+			win.setText("You Win!!");
+			win.setIconPixmap(QPixmap("Images/win.png"));
+			win.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+			win.setDefaultButton(QMessageBox::Ok);
+			int ret = win.exec();
 			return true;
 		}
 	}
@@ -214,8 +202,9 @@ void Character::updatePosition()
 		currentVelocity.y = currentVelocity.y + DT * G;
 	}
 
+	isCollidingWithPauline();
 	// updater l'animation du personnage
-
+	
 	updateAnimationState();
 
 	switch (animationState)

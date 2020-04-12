@@ -1,3 +1,9 @@
+/*
+Auteur: Equipe p-02
+Fichier: MainWindow.cpp
+Date : 9 fevrier 2020
+Description : Implementation des methodes de la classe MainWindow
+*/
 #include "MainWindow.h"
 
 MainWindow::MainWindow(QWidget *parent)

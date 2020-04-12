@@ -1,3 +1,9 @@
+/*
+@Auteur: Equipe p-02
+@Fichier: MainWindow.h
+@Date : 2 avril 2020
+@Brief : Declaration de la classe MainWindow
+*/
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 

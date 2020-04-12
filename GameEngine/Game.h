@@ -1,8 +1,8 @@
 /*
-Auteur: �quipe p-02
+Auteur: Equipe p-02
 Fichier: Game.h
-Date : 9 f�vrier 2020
-Description : D�claration de la classe Game
+Date : 9 fevrier 2020
+Description : Declaration de la classe Game
 */
 
 #pragma once

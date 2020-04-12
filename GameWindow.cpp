@@ -1,9 +1,15 @@
+/*
+@Brief: Implementation de la classe GameWindow
+@Author: Equipe P-02
+@File: GameWindow.cpp
+@Date: 2020-04-12
+*/
 #include "GameWindow.h"
 
 GamePage::GamePage(int lvl) : QGraphicsView()
 {
 	mainGame = new Game(lvl);
-	// cr�er la sc�ne et mettre le fond d'�cran
+	// creer la scene et mettre le fond d'ecran
 	scene = new QGraphicsScene();
 	QMediaPlaylist *playlist = new QMediaPlaylist();
 	playlist->addMedia(QUrl("song/01 - Donkey Kong Main Theme.mp3"));
@@ -35,7 +41,7 @@ GamePage::GamePage(int lvl) : QGraphicsView()
 	lifeCountText->setFont(font);
 	lifeCountText->setDefaultTextColor(Qt::blue);
 	lifeCountText->setPlainText("Life Count : 5");
-	lifeCountText->setPos(PIX_WIDTH * (MAX_WIDTH - 5), 0);
+	lifeCountText->setPos(PIX_WIDTH * (MAX_WIDTH - 6), 0);
 
 	scene->addItem(lifePointsText);
 	scene->addItem(lifeCountText);
@@ -45,6 +51,13 @@ GamePage::GamePage(int lvl) : QGraphicsView()
 	timer1 = new QTimer();
 	QObject::connect(timer1, SIGNAL(timeout()), this, SLOT(refresh()));
 	timer1->start(10);
+	QMessageBox startMessage;
+	startMessage.setText("Please click on the window to play");
+	startMessage.setInformativeText("Have fun!");
+	startMessage.setIconPixmap(QPixmap("Images/Icon.png"));
+	startMessage.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+	startMessage.setDefaultButton(QMessageBox::Ok);
+	int ret = startMessage.exec();
 }
 
 GamePage::~GamePage()
@@ -90,19 +103,23 @@ void GamePage::drawMap()
 	mainGame->getMario()->setFocus();
 	setFocusPolicy(Qt::StrongFocus);
 	//setFocus();
-	scene->addItem(mainGame.getMario());
+	scene->addItem(mainGame->getMario());
 
 }
+
 
 void GamePage::refresh()
 {
 	// updater la position de mario
-	mainGame.getMario()->updatePosition();
-	//adjustSound();
+	mainGame->getMario()->updatePosition();
+
 }
 
 void GamePage::marioRunRight()
 {
+	QFont font;
+	font.setPointSize(20);
+	font.setBold(true);
 	mainGame->setMario(RIGHT);
 	mainGame->getMario()->setPos(mainGame->getMario()->x() + 20, mainGame->getMario()->y());
 }

@@ -1,3 +1,9 @@
+/*
+Auteur: Equipe p-02
+Fichier: Levels.cpp
+Date : 9 fevrier 2020
+Description : Implementation des methodes de la classe Levels
+*/
 #include "Levels.h"
 
 LevelsPage::LevelsPage(QWidget *parent) : QWidget(parent)

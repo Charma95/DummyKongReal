@@ -1,3 +1,9 @@
+/*
+Auteur: Equipe p-02
+Fichier: Options.cpp
+Date : 9 fevrier 2020
+Description : Implementation des methodes de la classe Options
+*/
 #include "Options.h"
 
 OptionsPage::OptionsPage(QWidget *parent) : QMainWindow(parent)
