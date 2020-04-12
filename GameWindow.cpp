@@ -4,6 +4,15 @@ GamePage::GamePage(QWidget *parent) : QGraphicsView(parent)
 {
 	// créer la scène et mettre le fond d'écran
 	scene = new QGraphicsScene();
+	QMediaPlaylist *playlist = new QMediaPlaylist();
+	playlist->addMedia(QUrl("song/01 - Donkey Kong Main Theme.mp3"));
+	playlist->setPlaybackMode(QMediaPlaylist::Loop);
+
+	themesong = new QMediaPlayer();
+	themesong->setPlaylist(playlist);
+	themesong->play();
+	
+	
 	scene->setSceneRect(0, 0, PIX_WIDTH * MAX_WIDTH, PIX_HEIGHT * MAX_HEIGHT);
 	setBackgroundBrush(QBrush(QImage("Images/Background.jpg")));
 	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -68,7 +77,7 @@ void GamePage::refresh()
 {
 	// updater la position de mario
 	mainGame.getMario()->updatePosition();
-
+	adjustSound();
 }
 
 void GamePage::marioRunRight()
@@ -87,6 +96,12 @@ void GamePage::marioJump()
 {
 	//mainGame.setMario(HIGH);
 	mainGame.getMario()->setPos(mainGame.getMario()->x(), mainGame.getMario()->y() + 5);
+}
+void GamePage::adjustSound()
+{
+	OptionsPage option;
+	volumeLvl = option.volume;
+	themesong->setVolume(volumeLvl);
 }
 
 void GamePage::keyPressEvent(QKeyEvent *event) 

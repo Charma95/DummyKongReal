@@ -10,8 +10,8 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 MainWindow::~MainWindow()
-{
-	//qDebug() << "Destructor de ton anus" << endl;
+{ 
+	//cout << "destructeur Mainwindow" <<endl;
 	if(Continue != nullptr) delete Continue;
 	if(Play != nullptr)delete Play;
 	if (Option != nullptr)delete Option;
@@ -30,7 +30,7 @@ MainWindow::~MainWindow()
 	delete normalScreenAction;
 	delete fileMenu;
 	delete levelsMenu;
-	delete viewMenu;
+	//delete viewMenu;
 	delete menuBar;
 	if (mainLayout != nullptr)delete mainLayout;
 	if (centralWidget != nullptr)delete centralWidget;
@@ -54,7 +54,8 @@ void MainWindow::showLevelsPage()
 //	LevelsPage *levelsPage;
 	levelsPage = new LevelsPage(this);
 	setCentralWidget(levelsPage);
-	QObject::connect(levelsPage, SIGNAL(levelSelected()), this, SLOT(showGamePage()));
+	QObject::connect(levelsPage, SIGNAL(levelSelected(int)), this, SLOT(showGamePage(int)));
+	QObject::connect(levelsPage, SIGNAL(levelSelected(int)), this, SLOT(saveLevel(int)));
 	Continue = nullptr;
 	Play = nullptr;
 	Option = nullptr;
@@ -70,7 +71,7 @@ void MainWindow::showHomePage()
 	setupUI();
 }
 
-void MainWindow::showGamePage()
+void MainWindow::showGamePage(int level)
 {
 	gamePage = new GamePage();
 	QObject::connect(gamePage, SIGNAL(escPressed()), this, SLOT(showHomePage()));
@@ -83,11 +84,14 @@ void MainWindow::showGamePage()
 *
 *
 *************************************************************/
-void MainWindow::saveLevel()
+void MainWindow::saveLevel(int level)
 {
 	/* Pour fin de tests seulement */
-	m_level = "42";
+	//m_level = "42";
 	/*-----------------------------*/
+	cout << level << endl;
+	QString s = QString::number(level);
+	m_level = s;
 	QString fName = "logs/DunkeyKong_Sauvegarde.log";
 	QFile file(fName);
 
@@ -97,7 +101,6 @@ void MainWindow::saveLevel()
 		stream << m_level << endl;
 	}
 	file.close();
-	
 }
 
 void MainWindow::initWidget()
@@ -121,10 +124,11 @@ void MainWindow::initButton()
 	QObject::connect(Help, SIGNAL(clicked()), this, SLOT(showHelpPage()));
 	Save = new QPushButton("Save");
 	Save->setFixedSize(200, 40);
-	QObject::connect(Save, SIGNAL(clicked()), this, SLOT(saveLevel()));
+	QObject::connect(Save, SIGNAL(clicked()), this, SLOT(saveLevel(level)));
 	Exit = new QPushButton("Exit");
 	Exit->setFixedSize(200, 40);
 	QObject::connect(Exit, SIGNAL(clicked()), this, SLOT(exitGame()));
+	QObject::connect(this, SIGNAL(levelSelected(int)), this, SLOT(showGamePage(int)));
 }
 void MainWindow::initLayout()
 {
@@ -142,15 +146,19 @@ void MainWindow::initMenus()
 	menuBar = new QMenuBar();
 	fileMenu = new QMenu("File");
 	levelsMenu = new QMenu("Levels");
-	viewMenu = new QMenu("View");
+	//viewMenu = new QMenu("View");
 
 	optionsAction = new QAction("Options");
+	optionsAction->setIcon(QIcon("Images/options.png"));
+	QObject::connect(optionsAction, SIGNAL(triggered()), this, SLOT(showOptionsPage()));
 	saveAction = new QAction("Save");
 	saveAction->setIcon(QIcon("Images/save.png"));
-	QObject::connect(saveAction, SIGNAL(triggered()), this, SLOT(saveLevel()));
 	homeAction = new QAction("Home");
+	homeAction->setIcon(QIcon("Images/house.png"));
 	QObject::connect(homeAction, SIGNAL(triggered()), this, SLOT(showHomePage())); 
 	quitAction = new QAction("Quit");
+	quitAction->setIcon(QIcon("Images/cross.png"));
+	QObject::connect(quitAction, SIGNAL(triggered()), this, SLOT(exitGame()));
 	level1Action = new QAction("Level 1");
 	level2Action = new QAction("Level 2");
 	level3Action = new QAction("Level 3");
@@ -166,12 +174,12 @@ void MainWindow::initMenus()
 	levelsMenu->addAction(level2Action);
 	levelsMenu->addAction(level3Action);
 
-	viewMenu->addAction(fullScreenAction);
-	viewMenu->addAction(normalScreenAction);
+	//viewMenu->addAction(fullScreenAction);
+	//viewMenu->addAction(normalScreenAction);
 
 	menuBar->addMenu(fileMenu);
 	menuBar->addMenu(levelsMenu);
-	menuBar->addMenu(viewMenu);
+	//menuBar->addMenu(viewMenu);
 
 	setMenuBar(menuBar);
 }
@@ -209,7 +217,8 @@ void MainWindow::continueLastGame()
 	}
 	file.close();
 	/* Add line to put the player to the right level*/
-	//qDebug() << c_level << endl;
+	 int iLevel = c_level.toInt();
+	 emit levelSelected(iLevel);
 }
 
 
@@ -222,9 +231,10 @@ void MainWindow::exitGame()
 	msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
 	msgBox.setDefaultButton(QMessageBox::Save);
 	int ret = msgBox.exec();
-	switch (ret) {
+	switch (ret) 
+	{
 	case QMessageBox::Save:
-		saveLevel();
+		//saveLevel(m_level);
 		break;
 	case QMessageBox::Discard:
 		this->close();
@@ -239,20 +249,7 @@ void MainWindow::exitGame()
 	this->close();
 }
 
-/*void MainWindow::keyPressEvent(QKeyEvent *event) {
-	qDebug("allo");
-	// move the player left and right
-	if (event->key() == Qt::Key_A) {
-		qDebug("gauche\n");
-		//if (pos().x() > 0)
-			//setPos(x() - 100, y());
-	}
-	else if (event->key() == Qt::Key_D) {
-		qDebug("Droite\n");
-		//if (pos().x() + 48 < PIX_WIDTH * MAX_WIDTH);
-		//setPos(x() + 100, y());
-	}
-}*/
+
 
 
 

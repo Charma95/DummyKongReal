@@ -64,6 +64,7 @@ private:
 	QAction *fullScreenAction;
 	QAction *normalScreenAction;
 	QString m_level;
+	int level;
 
 	/* Private methods */
 	void initWidget();
@@ -72,15 +73,16 @@ private:
 	void initMenus();
 	void initUI();
 	void setupUI();
-
+signals:
+	void levelSelected(int level);
 private slots:
 	void showHelpPage();
 	void showOptionsPage();
 	void showLevelsPage();
 	void showHomePage();
-	void showGamePage();
+	void showGamePage(int level);
 	void exitGame();
-	void saveLevel();
+	void saveLevel(int level);
 	void continueLastGame();
 
 };

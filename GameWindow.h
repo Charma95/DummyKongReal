@@ -8,11 +8,12 @@
 #include <QGraphicsScene>
 #include <qgraphicsview.h>
 #include <qdebug.h>
+#include "Options.h"
 #include <QGraphicsPixmapItem>
 #include "GameEngine/Character.h"
 #include <QTimer>
-#include <qgraphicsitem.h>
-#include <QGraphicsItemGroup>
+#include <QMediaPlayer>
+#include <QMediaPlaylist>
 
 
 class GamePage : public QGraphicsView
@@ -27,6 +28,7 @@ public:
 	void marioRunRight();
 	void marioRunLeft();
 	void marioJump();
+	void adjustSound();
 public slots:
 	void refresh();
 
@@ -40,4 +42,6 @@ private:
 	QTimer *timer1;
 	QTimer *fallTimer;
 	QGraphicsScene *scene;
+	QMediaPlayer *themesong;
+	int volumeLvl;
 };
