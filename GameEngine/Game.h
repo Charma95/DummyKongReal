@@ -24,7 +24,7 @@ private:
 	XController player;
 
 public:
-	Game();
+	Game(int level = 1);
 	virtual ~Game();
 	bool start();
 	bool refresh();

@@ -73,7 +73,7 @@ void MainWindow::showHomePage()
 
 void MainWindow::showGamePage(int level)
 {
-	gamePage = new GamePage();
+	gamePage = new GamePage(level);
 	QObject::connect(gamePage, SIGNAL(escPressed()), this, SLOT(showHomePage()));
 	setCentralWidget(gamePage);
 }
@@ -89,7 +89,7 @@ void MainWindow::saveLevel(int level)
 	/* Pour fin de tests seulement */
 	//m_level = "42";
 	/*-----------------------------*/
-	cout << level << endl;
+	//cout << level << endl;
 	QString s = QString::number(level);
 	m_level = s;
 	QString fName = "logs/DunkeyKong_Sauvegarde.log";
@@ -124,7 +124,6 @@ void MainWindow::initButton()
 	QObject::connect(Help, SIGNAL(clicked()), this, SLOT(showHelpPage()));
 	Save = new QPushButton("Save");
 	Save->setFixedSize(200, 40);
-	QObject::connect(Save, SIGNAL(clicked()), this, SLOT(saveLevel(level)));
 	Exit = new QPushButton("Exit");
 	Exit->setFixedSize(200, 40);
 	QObject::connect(Exit, SIGNAL(clicked()), this, SLOT(exitGame()));

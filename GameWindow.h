@@ -14,13 +14,14 @@
 #include <QTimer>
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
+#include <QGraphicsTextItem>
 
 
 class GamePage : public QGraphicsView
 {
 	Q_OBJECT
 public:
-	GamePage(QWidget *parent = nullptr);
+	GamePage(int lvl = 1);
 	~GamePage();
 	void drawMap();
 	void keyPressEvent(QKeyEvent *event);
@@ -28,20 +29,19 @@ public:
 	void marioRunRight();
 	void marioRunLeft();
 	void marioJump();
-	void adjustSound();
 public slots:
 	void refresh();
 
 signals:
 	void escPressed();
 
-
 private:
-	Game mainGame;
+	Game *mainGame;
 	timer *t1;
 	QTimer *timer1;
-	QTimer *fallTimer;
 	QGraphicsScene *scene;
 	QMediaPlayer *themesong;
 	int volumeLvl;
+	QGraphicsTextItem *lifePointsText;
+	QGraphicsTextItem *lifeCountText;
 };

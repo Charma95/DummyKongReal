@@ -35,13 +35,13 @@ int KeyboardPress(char ch) {
 }
 
 
-Game::Game()
+Game::Game(int lvl)
 {
 	cout << "constructeur de Game\n";
 	mario = new Character(1, MAX_HEIGHT - 2, QPixmap("sprites/sprites/Mario/mario4.png"));
 	player.getUserInput();
 	isPaused = false;
-	level = new Level(1);
+	level = new Level(lvl);
 }
 
 Game::~Game()

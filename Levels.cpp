@@ -15,7 +15,7 @@ LevelsPage::LevelsPage(QWidget *parent) : QWidget(parent)
 	QObject::connect(level3, SIGNAL(clicked()), this, SLOT(level3Selected()));
 	level4 = new QPushButton("Level 4");
 	level4->setFixedSize(300, 40);
-	QObject::connect(level3, SIGNAL(clicked()), this, SLOT(level4Selected()));
+	QObject::connect(level4, SIGNAL(clicked()), this, SLOT(level4Selected()));
 
 	QPixmap bkgnd("Images/Background1.jpg");
 	QPalette palette;

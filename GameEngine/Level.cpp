@@ -45,10 +45,84 @@ Level::Level(int level)
 		
 		break;
 	case 2:
+		//fond de la map
+		for (int i = 0; i < MAX_HEIGHT; i++)
+		{
+			for (int j = 0; j < MAX_WIDTH; j++)
+			{
+				map[i][j] = AIR;
+			}
+		}
+
+		//planchers
+		for (int i = 0; i < MAX_WIDTH; i++)
+		{
+			map[MAX_HEIGHT - 1][i] = MAP;
+			map[MAX_HEIGHT - 10][i] = MAP;
+			map[MAX_HEIGHT - 15][i] = MAP;
+		}
+
+		//échelle 1
+		for (int i = MAX_HEIGHT - 2; i >= MAX_HEIGHT - 9; i--) map[i][MAX_WIDTH - 8] = LADDER;
+
+		//échelle 1
+		for (int i = MAX_HEIGHT - 11; i >= MAX_HEIGHT - 14; i--) map[i][MAX_WIDTH - 24] = LADDER;
 		break;
 	case 3:
+		//fond de la map
+		for (int i = 0; i < MAX_HEIGHT; i++)
+		{
+			for (int j = 0; j < MAX_WIDTH; j++)
+			{
+				map[i][j] = AIR;
+			}
+		}
+
+		//planchers
+		for (int i = 0; i < MAX_WIDTH; i++)
+		{
+			map[MAX_HEIGHT - 1][i] = MAP;
+			if (i > 10) map[MAX_HEIGHT - 5][i] = MAP;
+			if (i > 5) map[MAX_HEIGHT - 10][i] = MAP;
+			map[MAX_HEIGHT - 15][i] = MAP;
+		}
+
+		//échelle 1
+		for (int i = MAX_HEIGHT - 2; i >= MAX_HEIGHT - 4; i--) map[i][MAX_WIDTH - 8] = LADDER;
+
+		//échelle 2
+		for (int i = MAX_HEIGHT - 6; i >= MAX_HEIGHT - 9; i--) map[i][MAX_WIDTH - 10] = LADDER;
+
+		//échelle 3
+		for (int i = MAX_HEIGHT - 11; i >= MAX_HEIGHT - 14; i--) map[i][MAX_WIDTH - 12] = LADDER;
 		break;
 	default:
+		//fond de la map
+		for (int i = 0; i < MAX_HEIGHT; i++)
+		{
+			for (int j = 0; j < MAX_WIDTH; j++)
+			{
+				map[i][j] = AIR;
+			}
+		}
+
+		//planchers
+		for (int i = 0; i < MAX_WIDTH; i++)
+		{
+			map[MAX_HEIGHT - 1][i] = MAP;
+			map[MAX_HEIGHT - 5][i] = MAP;
+			map[MAX_HEIGHT - 10][i] = MAP;
+			map[MAX_HEIGHT - 15][i] = MAP;
+		}
+
+		//échelle 1
+		for (int i = MAX_HEIGHT - 2; i >= MAX_HEIGHT - 4; i--) map[i][MAX_WIDTH - 8] = LADDER;
+
+		//échelle 2
+		for (int i = MAX_HEIGHT - 6; i >= MAX_HEIGHT - 9; i--) map[i][MAX_WIDTH - 20] = LADDER;
+
+		//échelle 3
+		for (int i = MAX_HEIGHT - 11; i >= MAX_HEIGHT - 14; i--) map[i][MAX_WIDTH - 12] = LADDER;
 		break;
 	}
 }
