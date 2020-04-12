@@ -102,7 +102,7 @@ bool Game::refresh()
 		}
 		else if (mario->getJumpingState() != 0) mario->jump();
 		
-		if (level->checkAroundPlayer(mario->getPosition().x, mario->getPosition().y, PEACH)) level->completeLevel();
+		if (level->checkAroundPlayer(mario->getPosition().x, mario->getPosition().y, PAULINE)) level->completeLevel();
 
 		//showLevel(); // enlever des commentaires si on veut tester l'application console
 	}
@@ -188,7 +188,7 @@ void Game::showLevel()
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 				cout << "H";
 			}
-			else if (level->getMap(i, j) == PEACH)
+			else if (level->getMap(i, j) == PAULINE)
 			{
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 5);
 				cout << "P";

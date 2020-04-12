@@ -30,7 +30,6 @@ MainWindow::~MainWindow()
 	delete normalScreenAction;
 	delete fileMenu;
 	delete levelsMenu;
-	//delete viewMenu;
 	delete menuBar;
 	if (mainLayout != nullptr)delete mainLayout;
 	if (centralWidget != nullptr)delete centralWidget;

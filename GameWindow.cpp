@@ -3,7 +3,7 @@
 GamePage::GamePage(int lvl) : QGraphicsView()
 {
 	mainGame = new Game(lvl);
-	// créer la scène et mettre le fond d'écran
+	// crï¿½er la scï¿½ne et mettre le fond d'ï¿½cran
 	scene = new QGraphicsScene();
 	QMediaPlaylist *playlist = new QMediaPlaylist();
 	playlist->addMedia(QUrl("song/01 - Donkey Kong Main Theme.mp3"));
@@ -12,7 +12,7 @@ GamePage::GamePage(int lvl) : QGraphicsView()
 	themesong = new QMediaPlayer();
 	themesong->setPlaylist(playlist);
 	themesong->play();
-	
+	pauline = new QGraphicsPixmapItem(QPixmap("sprites/sprites/peach/peach1.png"));
 	
 	scene->setSceneRect(0, 0, PIX_WIDTH * MAX_WIDTH, PIX_HEIGHT * MAX_HEIGHT);
 	setBackgroundBrush(QBrush(QImage("Images/Background.jpg")));
@@ -22,7 +22,7 @@ GamePage::GamePage(int lvl) : QGraphicsView()
 	// dessiner la map du jeu et ajouter le joueur
 	drawMap();
 
-	// ajouter le texte et les points de vie à la scene
+	// ajouter le texte et les points de vie ï¿½ la scene
 	QFont font;
 	font.setPointSize(20);
 	font.setBold(true);
@@ -49,6 +49,7 @@ GamePage::GamePage(int lvl) : QGraphicsView()
 
 GamePage::~GamePage()
 {
+	delete pauline;
 	delete scene;
 	delete timer1;
 	delete themesong;
@@ -76,6 +77,10 @@ void GamePage::drawMap()
 				l->setPos(PIX_WIDTH * j, PIX_HEIGHT * i);
 				scene->addItem(l);
 				break;
+			case PAULINE:
+				pauline->setPos(PIX_WIDTH * j, (PIX_HEIGHT * i)-38);
+				scene->addItem(pauline);
+				break;
 			default:
 				break;
 			}
@@ -84,13 +89,15 @@ void GamePage::drawMap()
 	mainGame->getMario()->setFlag(QGraphicsItem::ItemIsFocusable);
 	mainGame->getMario()->setFocus();
 	setFocusPolicy(Qt::StrongFocus);
-	scene->addItem(mainGame->getMario());
+	//setFocus();
+	scene->addItem(mainGame.getMario());
+
 }
 
 void GamePage::refresh()
 {
 	// updater la position de mario
-	mainGame->getMario()->updatePosition();
+	mainGame.getMario()->updatePosition();
 	//adjustSound();
 }
 

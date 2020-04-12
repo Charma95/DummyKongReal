@@ -41,6 +41,7 @@ private:
 	QTimer *timer1;
 	QGraphicsScene *scene;
 	QMediaPlayer *themesong;
+	QGraphicsPixmapItem *pauline;
 	int volumeLvl;
 	QGraphicsTextItem *lifePointsText;
 	QGraphicsTextItem *lifeCountText;

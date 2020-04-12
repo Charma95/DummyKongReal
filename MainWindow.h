@@ -1,8 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-//#define MAX_HEIGHT 15
-//#define MAX_WIDTH 15
+
 
 #include <QMainWindow>
 #include <qlayout.h>
@@ -35,7 +34,6 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-	//void keyPressEvent(QKeyEvent *event);
 
 private:
 	QWidget *centralWidget;

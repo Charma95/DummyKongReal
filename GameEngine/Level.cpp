@@ -42,7 +42,8 @@ Level::Level(int level)
 
 		//échelle 3
 		for (int i = MAX_HEIGHT - 11; i >= MAX_HEIGHT - 14; i--) map[i][MAX_WIDTH - 10] = LADDER;
-		
+		// Pauline
+		map[MAX_HEIGHT - 16][MAX_WIDTH - 4] = PAULINE;
 		break;
 	case 2:
 		//fond de la map

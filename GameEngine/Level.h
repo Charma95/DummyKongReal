@@ -17,7 +17,7 @@ using namespace std;
 #define AIR 0
 #define MAP 1
 #define LADDER 2
-#define PEACH 3
+#define PAULINE 3
 #define HAMMER 4
 
 class Level
