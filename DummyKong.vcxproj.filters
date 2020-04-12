@@ -45,6 +45,9 @@
     <ClCompile Include="Help.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Ladder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="GameEngine\Level.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -60,6 +63,9 @@
     <ClCompile Include="Options.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="GameEngine\Tool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -70,12 +76,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameEngine\timer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Tile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ladder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,6 +98,9 @@
     <CustomBuild Include="Help.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <ClInclude Include="Ladder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="GameEngine\Level.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -113,6 +116,9 @@
     <CustomBuild Include="Options.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <ClInclude Include="Tile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="GameEngine\Tool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -120,12 +126,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameEngine\timer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Tile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ladder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

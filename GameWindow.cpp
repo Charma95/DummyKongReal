@@ -31,7 +31,6 @@ GamePage::GamePage(QWidget *parent) : QGraphicsView(parent)
 
 GamePage::~GamePage()
 {
-	cout << "destructeur de gamePage\n";
 	delete scene;
 	delete timer1;
 }
