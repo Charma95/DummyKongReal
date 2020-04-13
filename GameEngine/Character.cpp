@@ -10,6 +10,7 @@ Description : Implementation des methodes de la classe Character
 
 Character::Character(int positionX, int positionY, QPixmap pixmap) : QGraphicsPixmapItem()
 {
+	// initialiser les vecteurs servant à créer les animations
 	nothingVector.push_back(QPixmap("sprites/sprites/Mario/mario4.png"));
 
 	runningLeftVector.push_back(QPixmap("sprites/sprites/Mario/mario1-temp.png"));
@@ -32,9 +33,6 @@ Character::Character(int positionX, int positionY, QPixmap pixmap) : QGraphicsPi
 
 	setPixmap(pixmap);
 	setPos(positionX * PIX_WIDTH, (MAX_HEIGHT - 2) * PIX_HEIGHT - 26);
-	jumping = false;
-	falling = false;
-	jumpingState = 0;
 	lifePoints = 100;
 	lifeCount = 5;
 
@@ -42,12 +40,6 @@ Character::Character(int positionX, int positionY, QPixmap pixmap) : QGraphicsPi
 	currentVelocity.y = 0;
 	climbing = false;
 }
-
-Character::Character(const Character &character2)
-{
-
-}
-
 
 Character::~Character()
 {
@@ -85,36 +77,7 @@ void Character::setName(string newName)
 	name = newName;
 }
 
-
-
-bool Character::hit()
-{
-	return true;
-}
-
-bool Character::isJumping()
-{
-	return jumping;
-}
-
-bool Character::isFalling()
-{
-	return falling;
-}
-
-
-
-int Character::getJumpingState()
-{
-	return jumpingState;
-}
-
-void Character::setJumpingState(int jmp)
-{
-	jumpingState = jmp;
-}
-
-
+/* Cette fonction permet de retirer des points de vie tout en gérant le le fait qu'elle peut être entre 0 et 100*/
 void Character::takeDamage(int dmg)
 {
 	lifePoints -= dmg;
@@ -131,8 +94,7 @@ void Character::gainLifePoints(int lifePts)
 	if (lifePoints + lifePts <= 100) lifePoints += lifePts;
 }
 
-
-
+/* Cette fonction permet de vérifier si le joueur est en contact avec un plancher dans la scène */
 bool Character::isCollidingWithTile()
 {
 	for (QGraphicsItem* i : collidingItems()) {
@@ -145,6 +107,7 @@ bool Character::isCollidingWithTile()
 	return false;
 }
 
+/* Cette fonction permet de vérifier si le joueur est en contact avec une échelle dans la scène */
 bool Character::isCollidingWithLadder()
 {
 	for (QGraphicsItem* i : collidingItems()) {
@@ -157,24 +120,21 @@ bool Character::isCollidingWithLadder()
 	return false;
 }
 
+/* Cette fonction permet de vérifier si le joueur est en contact avec Pauline dans la scène */
 bool Character::isCollidingWithPauline()
 {
 	for (QGraphicsItem* i : collidingItems()) {
 		Pauline * item = dynamic_cast<Pauline *>(i);
 		if (item)
 		{
-			QMessageBox win;
-			win.setText("You Win!!");
-			win.setIconPixmap(QPixmap("Images/win.png"));
-			win.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
-			win.setDefaultButton(QMessageBox::Ok);
-			int ret = win.exec();
 			return true;
 		}
 	}
 	return false;
 }
 
+/* Cette fonction permet au joueur d'aterrir sur un plancher et de se replacer au-dessus
+pour éviter de passer au travers*/
 void Character::land()
 {
 	currentVelocity.y = 0;
@@ -182,8 +142,23 @@ void Character::land()
 	if (isCollidingWithTile() && posY % (PIX_HEIGHT/2) != 0) replaceOnTopOfObject();
 }
 
+/* Cette fonction est appelée à chaque "frame", elle permet de mettre à jour la position du
+joueur selon sa vitesse actuelle et plusieurs autres paramètres */
 void Character::updatePosition()
 {
+	// cette partie pour afficher que la partie a été gagnée n'est pas encore tout à fait fonctionnelle
+	// Le but est d'afficher un message indiquant que la partie est gagnée lorsque le joueur arrive à toucher à Pauline
+	if (isCollidingWithPauline())
+	{
+		QMessageBox win;
+		win.setText("You Win!!");
+		win.setIconPixmap(QPixmap("Images/win.png"));
+		win.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+		win.setDefaultButton(QMessageBox::Ok);
+		int ret = win.exec();
+	}
+
+	// changer la position actuelle du joueur
 	if (!isCollidingWithLadder()) climbing = false;
 	float newXPos = 0, newYPos = 0;
 	if (x() + DT * currentVelocity.x > 0 && x() + DT * currentVelocity.x < PIX_WIDTH * (MAX_WIDTH - 1)) newXPos = x() + DT * currentVelocity.x;
@@ -192,6 +167,7 @@ void Character::updatePosition()
 	setPos(newXPos, newYPos);
 
 	// verifier si il y a une platefrome sous mario, si oui ne pas tomber
+	// si la plateforme est au-dessus, le joueur a frappé un plafond
 	if (isCollidingWithTile())
 	{
 		if (currentVelocity.y > 0) land();
@@ -199,14 +175,14 @@ void Character::updatePosition()
 	}
 	else if (!climbing)
 	{
+		// Appliquer la gravité seulement si le joueur ne grimpe pas
 		currentVelocity.y = currentVelocity.y + DT * G;
 	}
 
-	isCollidingWithPauline();
-	// updater l'animation du personnage
-	
+	// Mettre à jour l'animation du personnage
 	updateAnimationState();
 
+	// Animer le personnage selon son état actuel
 	switch (animationState)
 	{
 	case NOTHING:
@@ -231,22 +207,25 @@ void Character::updatePosition()
 		animate(nothingClimbingVector);
 	default:
 		break;
-
 	}
 }
 
+/* Cette fonction permet au joueur d'avancer en changeant sa vitesse en x*/
 bool Character::forward()
 {
 	if (!climbing) currentVelocity.x = RUNSPEED;
 	return true;
 }
 
+/* Cette fonction permet au joueur de reculer en changeant sa vitesse en x*/
 bool Character::backward()
 {
 	if (!climbing) currentVelocity.x = -1 * RUNSPEED;
 	return true;
 }
 
+/* Cette fonction permet au joueur de grimper dans un échelle vers le haut.
+Il faut d'abord s'assurer que le joueur est bien dans une échelle*/
 void Character::climbUp()
 {
 	if (isCollidingWithLadder())
@@ -257,6 +236,8 @@ void Character::climbUp()
 	}
 }
 
+/* Cette fonction permet au joueur de grimper dans un échelle vers le bas.
+Il faut d'abord s'assurer que le joueur est bien dans une échelle*/
 void Character::climbDown()
 {
 	if (isCollidingWithLadder())
@@ -267,11 +248,13 @@ void Character::climbDown()
 	}
 }
 
+/* Cette fonction permet au joueur de s'arrêter au milieu d'une échelle */
 void Character::stopClimbing()
 {
 	currentVelocity.y = 0;
 }
 
+/* Cette fonction permet au joueur de sauter en aplliquant un vitesse en y */
 bool Character::jump()
 {
 	if (isCollidingWithTile()) currentVelocity.y -= JUMPFORCE;
@@ -279,27 +262,27 @@ bool Character::jump()
 	return true;
 }
 
+/* Cette fonction permet de replacer le joueur au-dessus d'un plancher et d'éviter qu'il ne passe à-travers */
 void Character::replaceOnTopOfObject()
 {
-	/*int posY = y();
-	int dy = posY % PIX_HEIGHT;
-
-	setPos(x(), posY - dy);*/
 	while (isCollidingWithTile()) setPos(x(), y() - 1);
 	setPos(x(), y() + 1);
 }
 
+/* Frapper un plafond */
 void Character::hitHead()
 {
 	currentVelocity.y = -1 * currentVelocity.y;
 }
 
+/* Arrêter de bouger en x */
 void Character::stop()
 {
 	changeAnimationState(NOTHING);
 	currentVelocity.x = 0;
 }
 
+/* Cette fonction permet de changer l'état d'animation tout en s'assurant que l'index est remis à zéro si c'est un nouvel état */
 void Character::changeAnimationState(int newState)
 {
 	if (animationState != newState)
@@ -307,6 +290,7 @@ void Character::changeAnimationState(int newState)
 	animationState = newState;
 }
 
+/* Itérer à tracers les différents éléments du vecteur pour animer le personnage */
 void Character::animate(vector<QPixmap> vec)
 {
 	if (vec.size() <= animationIndex + 1) animationIndex = 0;
@@ -315,6 +299,7 @@ void Character::animate(vector<QPixmap> vec)
 	setPixmap(vec[animationIndex]);
 }
 
+/* Vérifier dans quel état le personnage se trouve (s'il grimpe, court, saute ou est sur place) */
 void Character::updateAnimationState()
 {
 	if (climbing && currentVelocity.y != 0)

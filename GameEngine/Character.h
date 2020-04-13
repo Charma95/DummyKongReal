@@ -49,9 +49,6 @@ private:
 	int lifePoints;
 	int lifeCount;
 	string name;
-	bool jumping;
-	bool falling;
-	int jumpingState;
 	vector2 currentVelocity;
 	vector<QPixmap> nothingVector;
 	vector<QPixmap> runningLeftVector;
@@ -62,10 +59,8 @@ private:
 	vector<QPixmap> nothingClimbingVector;
 	bool climbing;
 
-
 public:
 	Character(int positionX = 1, int positionY = MAX_HEIGHT - 2, QPixmap pixmap = QPixmap(""));
-	Character(const Character &character2);
 	virtual ~Character();
 	int getLifePoints();
 	void setLifePoints(int newLifePoints);
@@ -73,17 +68,6 @@ public:
 	void setLifeCount(int newLifeCount);
 	string getName();
 	void setName(string newName);
-	bool climb();
-	bool hit();
-	void goUp();
-	void goDown();
-
-	bool fall();
-	bool isFalling();
-	bool isJumping();
-	int getJumpingState();
-	void setJumpingState(int jmp);
-
 	void takeDamage(int dmg);
 	void gainLifePoints(int lifePts);
 

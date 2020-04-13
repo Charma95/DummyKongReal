@@ -6,6 +6,7 @@ Description : Implementation des methodes de la classe Options
 */
 #include "Options.h"
 
+/* Initialiser les différents éléments de la fenêtre */
 OptionsPage::OptionsPage(QWidget *parent) : QMainWindow(parent)
 {
 	centralWidget = new QWidget(this);

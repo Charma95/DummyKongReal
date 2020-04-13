@@ -17,7 +17,6 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 { 
-	//cout << "destructeur Mainwindow" <<endl;
 	if(Continue != nullptr) delete Continue;
 	if(Play != nullptr)delete Play;
 	if (Option != nullptr)delete Option;
@@ -41,12 +40,14 @@ MainWindow::~MainWindow()
 	if (centralWidget != nullptr)delete centralWidget;
 }
 
+/* Afficher la page d'aide */
 void MainWindow::showHelpPage()
 {
 	helpPage = std::make_unique<HelpPage>(this);
 	helpPage->show();
 }
 
+/* Afficher la page d'options */
 void MainWindow::showOptionsPage()
 {
 	if (optionsPage != nullptr) delete optionsPage;
@@ -54,9 +55,9 @@ void MainWindow::showOptionsPage()
 	optionsPage->show();
 }
 
+/* Afficher la page permettant de choisir le niveau */
 void MainWindow::showLevelsPage()
 {
-//	LevelsPage *levelsPage;
 	levelsPage = new LevelsPage(this);
 	setCentralWidget(levelsPage);
 	QObject::connect(levelsPage, SIGNAL(levelSelected(int)), this, SLOT(showGamePage(int)));
@@ -70,12 +71,14 @@ void MainWindow::showLevelsPage()
 	centralWidget = nullptr;
 }
 
+/* Afficher la page d'accueil */
 void MainWindow::showHomePage()
 {
 	gamePage = nullptr;
 	setupUI();
 }
 
+/* Afficher la page de jeu */
 void MainWindow::showGamePage(int level)
 {
 	gamePage = new GamePage(level);
@@ -83,18 +86,9 @@ void MainWindow::showGamePage(int level)
 	setCentralWidget(gamePage);
 }
 
-/* ***********************************************************
-* save level in a .log file stored in the project
-*
-*
-*
-*************************************************************/
+/* Sauvegarder le niveau dans unn fichier .txt */
 void MainWindow::saveLevel(int level)
 {
-	/* Pour fin de tests seulement */
-	//m_level = "42";
-	/*-----------------------------*/
-	//cout << level << endl;
 	QString s = QString::number(level);
 	m_level = s;
 	QString fName = "logs/DunkeyKong_Sauvegarde.log";
@@ -108,11 +102,14 @@ void MainWindow::saveLevel(int level)
 	file.close();
 }
 
+/* Initialiser le widget central */
 void MainWindow::initWidget()
 {
 	centralWidget = new QWidget(this);
 	mainLayout = new QGridLayout();
 }
+
+/* Initialiser les boutons */
 void MainWindow::initButton()
 {
 	Continue = new QPushButton("Continue");
@@ -134,6 +131,8 @@ void MainWindow::initButton()
 	QObject::connect(Exit, SIGNAL(clicked()), this, SLOT(exitGame()));
 	QObject::connect(this, SIGNAL(levelSelected(int)), this, SLOT(showGamePage(int)));
 }
+
+/* Initialiser le layout */
 void MainWindow::initLayout()
 {
 	mainLayout->setHorizontalSpacing(0);
@@ -145,6 +144,8 @@ void MainWindow::initLayout()
 	palette.setBrush(QPalette::Background, bkgnd);
 	centralWidget->setPalette(palette);
 }
+
+/* Initialiser les menus */
 void MainWindow::initMenus()
 {
 	menuBar = new QMenuBar();
@@ -178,15 +179,13 @@ void MainWindow::initMenus()
 	levelsMenu->addAction(level2Action);
 	levelsMenu->addAction(level3Action);
 
-	//viewMenu->addAction(fullScreenAction);
-	//viewMenu->addAction(normalScreenAction);
-
 	menuBar->addMenu(fileMenu);
 	menuBar->addMenu(levelsMenu);
-	//menuBar->addMenu(viewMenu);
 
 	setMenuBar(menuBar);
 }
+
+/* Initialiser l'inteface graphique */
 void MainWindow::initUI()
 {
 	mainLayout->setAlignment(Qt::AlignCenter);
@@ -210,6 +209,7 @@ void MainWindow::setupUI()
 	initUI();
 }
 
+/* Lire le fichier de sauvegarde et continuer la dernière partie */
 void MainWindow::continueLastGame()
 {
 	QString fName = "logs/DunkeyKong_Sauvegarde.log";
@@ -247,7 +247,6 @@ void MainWindow::exitGame()
 		this->close();
 		break;
 	default:
-		qDebug() << "we are in trouble" << endl;
 		break;
 	}
 	this->close();

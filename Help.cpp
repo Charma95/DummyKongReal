@@ -29,6 +29,7 @@ void HelpPage::setupUI()
 	initializeWidget();
 }
 
+/* Créer le widget s'appliquant à la fenêtre */
 void HelpPage::createWidget()
 {
 	helpWidget = new QWidget(this);
@@ -40,6 +41,7 @@ void HelpPage::createWidget()
 	helpLayout = new QGridLayout();
 }
 
+/* Initialiser tous les éléments se retrouvant dans la fenêtre */
 void HelpPage::initializeWidget()
 {
 	Message = new QLabel();
@@ -58,6 +60,7 @@ void HelpPage::initializeWidget()
 	setCentralWidget(helpWidget);
 }
 
+/* fermet la fenêtre */
 void HelpPage::closeHelpPage() 
 {
 	this->close();

@@ -23,23 +23,14 @@ using namespace std;
 class Level
 {
 private:
-	unsigned char difficulty;
 	int map[MAX_HEIGHT][MAX_WIDTH] = { 0 };
 	int index;
 	bool complete;
 
-
 public:
 	Level(int level = 1);
 	virtual ~Level();
-
-	unsigned char getDifficulty();
 	int getMap(int i, int j);
-
-	void setDifficulty(unsigned char newDifficulty);
-
-	void update();
 	bool isComplete();
 	void completeLevel();
-	bool checkAroundPlayer(int x, int y, int check);
 };

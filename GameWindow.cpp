@@ -9,17 +9,17 @@
 GamePage::GamePage(int lvl) : QGraphicsView()
 {
 	mainGame = new Game(lvl);
-	// creer la scene et mettre le fond d'ecran
-	scene = new QGraphicsScene();
+	// initialiser la musique et l'appliquer à la page actuelle
 	QMediaPlaylist *playlist = new QMediaPlaylist();
 	playlist->addMedia(QUrl("song/01 - Donkey Kong Main Theme.mp3"));
 	playlist->setPlaybackMode(QMediaPlaylist::Loop);
-
 	themesong = new QMediaPlayer();
 	themesong->setPlaylist(playlist);
 	themesong->play();
 	pauline = new QGraphicsPixmapItem(QPixmap("sprites/sprites/peach/peach1.png"));
 	
+	//initialiser la scène et et les éléments qui sont dedans
+	scene = new QGraphicsScene();
 	scene->setSceneRect(0, 0, PIX_WIDTH * MAX_WIDTH, PIX_HEIGHT * MAX_HEIGHT);
 	setBackgroundBrush(QBrush(QImage("Images/Background.jpg")));
 	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -48,9 +48,12 @@ GamePage::GamePage(int lvl) : QGraphicsView()
 
 	setScene(scene);
 
+	// Initialiser le timer servant à changer les différents "frames"
 	timer1 = new QTimer();
 	QObject::connect(timer1, SIGNAL(timeout()), this, SLOT(refresh()));
 	timer1->start(10);
+
+	// Afficher un message indiquant qu'il faut cliquer dans l'écran avant de pouvoir jouer
 	QMessageBox startMessage;
 	startMessage.setText("Please click on the window to play");
 	startMessage.setInformativeText("Have fun!");
@@ -68,6 +71,8 @@ GamePage::~GamePage()
 	delete themesong;
 }
 
+/* Cette fonction permet d'itérer à travers un matrice représentant un niveau et ajouter 
+tous les éléments à la scène*/
 void GamePage::drawMap()
 {
 	for (int i = 0; i < MAX_HEIGHT; i++)
@@ -102,12 +107,11 @@ void GamePage::drawMap()
 	mainGame->getMario()->setFlag(QGraphicsItem::ItemIsFocusable);
 	mainGame->getMario()->setFocus();
 	setFocusPolicy(Qt::StrongFocus);
-	//setFocus();
 	scene->addItem(mainGame->getMario());
 
 }
 
-
+/* Cette fonction permet de rafraîchir la scène et les éléments s'y retrouvant */
 void GamePage::refresh()
 {
 	// updater la position de mario
@@ -115,29 +119,9 @@ void GamePage::refresh()
 
 }
 
-void GamePage::marioRunRight()
-{
-	QFont font;
-	font.setPointSize(20);
-	font.setBold(true);
-	mainGame->setMario(RIGHT);
-	mainGame->getMario()->setPos(mainGame->getMario()->x() + 20, mainGame->getMario()->y());
-}
-
-void GamePage::marioRunLeft()
-{
-	mainGame->setMario(LEFT);
-	mainGame->getMario()->setPos(mainGame->getMario()->x() - 20, mainGame->getMario()->y());
-}
-
-void GamePage::marioJump()
-{
-	mainGame->getMario()->setPos(mainGame->getMario()->x(), mainGame->getMario()->y() + 5);
-}
-
+/* Détecter lorsqu'une touche est appuyée */
 void GamePage::keyPressEvent(QKeyEvent *event) 
 {
-	// move the player left and right
 	if (event->key() == Qt::Key_A)
 	{
 		if (mainGame->getMario()->pos().x() > 0)
@@ -166,6 +150,7 @@ void GamePage::keyPressEvent(QKeyEvent *event)
 	}
 }
 
+/* Détecter lorsqu'une touche est relâchée */
 void GamePage::keyReleaseEvent(QKeyEvent *event)
 {
 	if (event->key() == Qt::Key_A || event->key() == Qt::Key_D)

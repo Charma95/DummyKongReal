@@ -7,6 +7,7 @@ Description : Implémentation des méthodes de la classe Level
 
 #include "Level.h"
 
+/* Dans le constructeur, les quatre différents niveaux du jeu sont initialisés */
 Level::Level(int level)
 {
 	
@@ -144,45 +145,6 @@ Level::~Level()
 	//delete hammer;
 }
 
-unsigned char Level::getDifficulty()
-{
-	return difficulty;
-}
-
-void Level::setDifficulty(unsigned char newDifficulty)
-{
-	difficulty = newDifficulty;
-}
-
-
-
-void Level::update()
-{
-	system("cls");
-
-	for (int i = 0; i < MAX_HEIGHT; i++)
-	{
-		for (int j = 0; j < MAX_WIDTH; j++)
-		{
-			switch (map[i][j])
-			{
-			case AIR:
-				cout << " ";
-				break;
-			case MAP:
-				cout << "#";
-				break;
-			case LADDER:
-				cout << "1";
-				break;
-			default:
-				break;
-			}
-		}
-		cout << endl;
-	}
-}
-
 int Level::getMap(int i, int j)
 {
 	return map[i][j];
@@ -198,11 +160,4 @@ void Level::completeLevel()
 	complete = true;
 }
 
-bool Level::checkAroundPlayer(int x, int y, int check)
-{
-	if (map[y + 1][x] == check) return true;
-	if (map[y - 1][x] == check) return true;
-	if (map[y][x + 1] == check) return true;
-	if (map[y][x - 1] == check) return true;
-	return false;
-}
+

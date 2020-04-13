@@ -14,5 +14,5 @@ public:
 	Ladder();
 	~Ladder();
 private:
-	int lad;
+
 };

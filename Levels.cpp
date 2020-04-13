@@ -6,6 +6,7 @@ Description : Implementation des methodes de la classe Levels
 */
 #include "Levels.h"
 
+/* Initialiser tous les éléments se retrouvant dans la fenêtre */
 LevelsPage::LevelsPage(QWidget *parent) : QWidget(parent)
 {
 	mainLayout = new QVBoxLayout();
@@ -45,15 +46,12 @@ LevelsPage::~LevelsPage()
 	delete level1;
 	delete level2;
 	delete level3;
+	delete level4;
 	delete mainLayout;
 }
 
-//void LevelsPage::showGameWindow(int level)
-//{
-//	//m_level = level;
-//	emit levelSelected(level);
-//}
-
+/* Les 4 prochaines fonctions servent à émettre un signal avec le bon niveau lorsque le bouton
+correspondant au niveau est appuyé*/
 void LevelsPage::level1Selected()
 {
 	emit levelSelected(1);

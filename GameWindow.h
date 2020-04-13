@@ -32,9 +32,7 @@ public:
 	void drawMap();
 	void keyPressEvent(QKeyEvent *event);
 	void keyReleaseEvent(QKeyEvent *event);
-	void marioRunRight();
-	void marioRunLeft();
-	void marioJump();
+
 public slots:
 	void refresh();
 
