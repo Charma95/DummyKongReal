@@ -9,6 +9,7 @@
 GamePage::GamePage(int lvl) : QGraphicsView()
 {
 	mainGame = new Game(lvl);
+	QObject::connect(mainGame->getMario(), SIGNAL(finishLevel()), this, SLOT(finishLevel()));
 	// initialiser la musique et l'appliquer à la page actuelle
 	QMediaPlaylist *playlist = new QMediaPlaylist();
 	playlist->addMedia(QUrl("song/01 - Donkey Kong Main Theme.mp3"));
@@ -117,6 +118,11 @@ void GamePage::refresh()
 	// updater la position de mario
 	mainGame->getMario()->updatePosition();
 
+}
+
+void GamePage::finishLevel()
+{
+	cout << "Niveau terminé!\n";
 }
 
 /* Détecter lorsqu'une touche est appuyée */

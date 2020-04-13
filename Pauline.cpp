@@ -10,6 +10,7 @@ Pauline::Pauline() : QGraphicsPixmapItem()
 {
 	setPixmap(QPixmap("Images/peach1.png"));
 }
+
 Pauline::~Pauline()
 {
 

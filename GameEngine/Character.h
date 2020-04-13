@@ -41,8 +41,9 @@ struct vector2
 	float y;
 };
 
-class Character : public QGraphicsPixmapItem
+class Character : public QObject, public QGraphicsPixmapItem
 {
+	Q_OBJECT
 private:
 	int animationIndex;
 	int animationState;
@@ -90,4 +91,7 @@ public:
 	void changeAnimationState(int newState);
 	void animate(vector<QPixmap> vec);
 	void updateAnimationState();
+
+signals:
+	void finishLevel();
 };

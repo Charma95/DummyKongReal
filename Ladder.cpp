@@ -10,7 +10,6 @@ Description : Implementation des methodes de la classe Ladder
 Ladder::Ladder() : QGraphicsPixmapItem()
 {
 	setPixmap(QPixmap("images/Ladder.jpg"));
-	lad = 0;
 }
 
 Ladder::~Ladder()

@@ -35,6 +35,7 @@ public:
 
 public slots:
 	void refresh();
+	void finishLevel();
 
 signals:
 	void escPressed();
