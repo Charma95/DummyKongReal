@@ -44,6 +44,7 @@ public:
 private:
 	QWidget *centralWidget;
 	QGridLayout *mainLayout;
+	QLabel *logo;
 	QPushButton *Continue;
 	QPushButton *Play;
 	QPushButton *Option;
@@ -65,6 +66,7 @@ private:
 	QAction *level1Action;
 	QAction *level2Action;
 	QAction *level3Action;
+	QAction *level4Action;
 	QAction *fullScreenAction;
 	QAction *normalScreenAction;
 	QString m_level;
@@ -86,8 +88,14 @@ private slots:
 	void showHomePage();
 	void showGamePage(int level);
 	void exitGame();
+	void switchOnLevel();
 	void saveLevel(int level);
 	void continueLastGame();
+	void level1Selected();
+	void level2Selected();
+	void level3Selected();
+	void level4Selected();
+
 
 };
 #endif // MAINWINDOW_H

@@ -150,14 +150,7 @@ void Character::updatePosition()
 	// Le but est d'afficher un message indiquant que la partie est gagnée lorsque le joueur arrive à toucher à Pauline
 	if (isCollidingWithPauline())
 	{
-		cout << "Pauline\n";
 		emit finishLevel();
-		/*QMessageBox win;
-		win.setText("You Win!!");
-		win.setIconPixmap(QPixmap("Images/win.png"));
-		win.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
-		win.setDefaultButton(QMessageBox::Ok);
-		int ret = win.exec();*/
 	}
 
 	// changer la position actuelle du joueur

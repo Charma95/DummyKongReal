@@ -9,6 +9,8 @@ Description : Implementation des methodes de la classe Options
 /* Initialiser les différents éléments de la fenêtre */
 OptionsPage::OptionsPage(QWidget *parent) : QMainWindow(parent)
 {
+
+	setWindowIcon(QIcon("Images/Icon.png"));
 	centralWidget = new QWidget(this);
 
 	optionsLabel = new QLabel();

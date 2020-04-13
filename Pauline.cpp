@@ -8,7 +8,7 @@
 
 Pauline::Pauline() : QGraphicsPixmapItem()
 {
-	setPixmap(QPixmap("Images/peach1.png"));
+	setPixmap(QPixmap("sprites/sprites/peach/peach1.png"));
 }
 
 Pauline::~Pauline()

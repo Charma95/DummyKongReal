@@ -10,13 +10,15 @@ MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent),
 	helpPage(nullptr),
 	optionsPage(nullptr),
-	gamePage(nullptr)
+	gamePage(nullptr),
+	level(1)
 {
 	setupUI();
 }
 
 MainWindow::~MainWindow()
 { 
+	if (logo != nullptr) delete logo;
 	if(Continue != nullptr) delete Continue;
 	if(Play != nullptr)delete Play;
 	if (Option != nullptr)delete Option;
@@ -31,6 +33,7 @@ MainWindow::~MainWindow()
 	delete level1Action;
 	delete level2Action;
 	delete level3Action;
+	delete level4Action;
 	delete fullScreenAction;
 	delete normalScreenAction;
 	delete fileMenu;
@@ -86,6 +89,27 @@ void MainWindow::showGamePage(int level)
 	setCentralWidget(gamePage);
 }
 
+void MainWindow::switchOnLevel()
+{
+	switch (level)
+	{
+	case 1:
+		saveLevel(1);
+		break;
+	case 2:
+		saveLevel(2);
+		break;
+	case 3:
+		saveLevel(3);
+		break;
+	case 4:
+		saveLevel(4);
+		break;
+	default:
+		break;
+	}
+}
+
 /* Sauvegarder le niveau dans unn fichier .txt */
 void MainWindow::saveLevel(int level)
 {
@@ -100,6 +124,14 @@ void MainWindow::saveLevel(int level)
 		stream << m_level << endl;
 	}
 	file.close();
+
+	QMessageBox msg;
+	msg.setText("Saved successfully!");
+	msg.setIconPixmap(QPixmap("Images/win.png"));
+	msg.setWindowIcon(QIcon("Images/Icon.png"));
+	msg.setStandardButtons(QMessageBox::Ok);
+	msg.setDefaultButton(QMessageBox::Ok);
+	msg.exec();
 }
 
 /* Initialiser le widget central */
@@ -112,6 +144,9 @@ void MainWindow::initWidget()
 /* Initialiser les boutons */
 void MainWindow::initButton()
 {
+	logo = new QLabel();
+	logo->setPixmap(QPixmap("Images/bkgnd.png"));
+	//logo->setFixedSize(1200, 500);
 	Continue = new QPushButton("Continue");
 	Continue->setFixedSize(200, 40);
 	QObject::connect(Continue, SIGNAL(clicked()), this, SLOT(continueLastGame()));
@@ -138,10 +173,12 @@ void MainWindow::initLayout()
 	mainLayout->setHorizontalSpacing(0);
 	mainLayout->setVerticalSpacing(0);
 
-	QPixmap bkgnd("Images/Background1.jpg");
+	QPixmap bkgnd("Images/side.png");
+	bkgnd = bkgnd.scaled(this->size(), Qt::KeepAspectRatioByExpanding);
 	QPalette palette;
+	palette.setColor(QPalette::Background, Qt::black);
 	centralWidget->setAutoFillBackground(true);
-	palette.setBrush(QPalette::Background, bkgnd);
+	//palette.setBrush(QPalette::Background, bkgnd);
 	centralWidget->setPalette(palette);
 }
 
@@ -158,6 +195,7 @@ void MainWindow::initMenus()
 	QObject::connect(optionsAction, SIGNAL(triggered()), this, SLOT(showOptionsPage()));
 	saveAction = new QAction("Save");
 	saveAction->setIcon(QIcon("Images/save.png"));
+	QObject::connect(saveAction, SIGNAL(triggered()), this, SLOT(switchOnLevel()));
 	homeAction = new QAction("Home");
 	homeAction->setIcon(QIcon("Images/house.png"));
 	QObject::connect(homeAction, SIGNAL(triggered()), this, SLOT(showHomePage())); 
@@ -165,8 +203,13 @@ void MainWindow::initMenus()
 	quitAction->setIcon(QIcon("Images/cross.png"));
 	QObject::connect(quitAction, SIGNAL(triggered()), this, SLOT(exitGame()));
 	level1Action = new QAction("Level 1");
+	QObject::connect(level1Action, SIGNAL(triggered()), this, SLOT(level1Selected()));
 	level2Action = new QAction("Level 2");
+	QObject::connect(level2Action, SIGNAL(triggered()), this, SLOT(level2Selected()));
 	level3Action = new QAction("Level 3");
+	QObject::connect(level3Action, SIGNAL(triggered()), this, SLOT(level3Selected()));
+	level4Action = new QAction("Level 4");
+	QObject::connect(level4Action, SIGNAL(triggered()), this, SLOT(level4Selected()));
 	fullScreenAction = new QAction("Full screen");
 	normalScreenAction = new QAction("Regular screen");
 
@@ -178,6 +221,7 @@ void MainWindow::initMenus()
 	levelsMenu->addAction(level1Action);
 	levelsMenu->addAction(level2Action);
 	levelsMenu->addAction(level3Action);
+	levelsMenu->addAction(level4Action);
 
 	menuBar->addMenu(fileMenu);
 	menuBar->addMenu(levelsMenu);
@@ -189,12 +233,13 @@ void MainWindow::initMenus()
 void MainWindow::initUI()
 {
 	mainLayout->setAlignment(Qt::AlignCenter);
-	mainLayout->setSpacing(30);
-	mainLayout->addWidget(Continue, 1, 3, 1, 1);
-	mainLayout->addWidget(Play, 2, 3, 1, 1);
-	mainLayout->addWidget(Option, 3, 3, 1, 1);
-	mainLayout->addWidget(Help, 4, 3, 1, 1);
-	mainLayout->addWidget(Exit, 5, 3, 1, 1);
+	mainLayout->setSpacing(10);
+	mainLayout->addWidget(logo, 1, 3, 1, 1, Qt::AlignCenter);
+	mainLayout->addWidget(Continue, 2, 3, 1, 1, Qt::AlignCenter);
+	mainLayout->addWidget(Play, 3, 3, 1, 1, Qt::AlignCenter);
+	mainLayout->addWidget(Option, 4, 3, 1, 1, Qt::AlignCenter);
+	mainLayout->addWidget(Help, 5, 3, 1, 1, Qt::AlignCenter);
+	mainLayout->addWidget(Exit, 6, 3, 1, 1, Qt::AlignCenter);
 
 	centralWidget->setLayout(mainLayout);
 	setCentralWidget(centralWidget);
@@ -232,25 +277,51 @@ void MainWindow::exitGame()
 	QMessageBox msgBox;
 	msgBox.setText("Your progression since your last session");
 	msgBox.setInformativeText("Do you want to save your changes?");
+	msgBox.setWindowIcon(QIcon("Images/Icon.png"));
 	msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
 	msgBox.setDefaultButton(QMessageBox::Save);
 	int ret = msgBox.exec();
 	switch (ret) 
 	{
 	case QMessageBox::Save:
-		//saveLevel(m_level);
+		saveLevel(level);
 		break;
 	case QMessageBox::Discard:
 		this->close();
 		break;
 	case QMessageBox::Cancel:
-		this->close();
+		msgBox.close();
 		break;
 	default:
 		break;
 	}
-	this->close();
 }
+
+void MainWindow::level1Selected()
+{
+	level = 1;
+	emit levelSelected(1);
+}
+
+void MainWindow::level2Selected()
+{
+	level = 2;
+	emit levelSelected(2);
+}
+
+void MainWindow::level3Selected()
+{
+	level = 3;
+	emit levelSelected(3);
+}
+
+void MainWindow::level4Selected()
+{
+	level = 4;
+	emit levelSelected(4);
+}
+
+
 
 
 

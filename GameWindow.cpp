@@ -17,7 +17,7 @@ GamePage::GamePage(int lvl) : QGraphicsView()
 	themesong = new QMediaPlayer();
 	themesong->setPlaylist(playlist);
 	themesong->play();
-	pauline = new QGraphicsPixmapItem(QPixmap("sprites/sprites/peach/peach1.png"));
+	pauline = new Pauline();
 	
 	//initialiser la scène et et les éléments qui sont dedans
 	scene = new QGraphicsScene();
@@ -58,8 +58,9 @@ GamePage::GamePage(int lvl) : QGraphicsView()
 	QMessageBox startMessage;
 	startMessage.setText("Please click on the window to play");
 	startMessage.setInformativeText("Have fun!");
+	startMessage.setWindowIcon(QIcon("Images/Icon.png"));
 	startMessage.setIconPixmap(QPixmap("Images/Icon.png"));
-	startMessage.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+	startMessage.setStandardButtons(QMessageBox::Ok);
 	startMessage.setDefaultButton(QMessageBox::Ok);
 	int ret = startMessage.exec();
 }
@@ -122,7 +123,15 @@ void GamePage::refresh()
 
 void GamePage::finishLevel()
 {
-	cout << "Niveau terminé!\n";
+	timer1->stop();
+	QMessageBox win;
+	win.setText("You Win!!");
+	win.setIconPixmap(QPixmap("Images/win.png"));
+	win.setWindowIcon(QIcon("Images/Icon.png"));
+	win.setStandardButtons(QMessageBox::Ok);
+	win.setDefaultButton(QMessageBox::Ok);
+	int ret = win.exec();
+	emit escPressed();
 }
 
 /* Détecter lorsqu'une touche est appuyée */
