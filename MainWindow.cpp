@@ -178,7 +178,6 @@ void MainWindow::initLayout()
 	QPalette palette;
 	palette.setColor(QPalette::Background, Qt::black);
 	centralWidget->setAutoFillBackground(true);
-	//palette.setBrush(QPalette::Background, bkgnd);
 	centralWidget->setPalette(palette);
 }
 
