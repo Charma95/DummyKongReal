@@ -48,7 +48,7 @@ void HelpPage::initializeWidget()
 	Message->setFixedSize(700, 600);
 	QFont f("Arial", 14);
 	Message->setFont(f);
-	Message->setText("<font color='blue'>Menu aide<br><br>******* Clavier ********<br><br>-Les touches A et D servent a se deplacer de gauche a droite<br>-Les touches W et S servent a monter ou descendre les echelles<br>-La barre espace sert a sauter<br>-La touche 1 sert a frapper avec le marteau<br><br> ******** Manette Xbox ********<br><br> -Le bouton A sert  a sauter<br> -Le bouton X sert a frapper avec le marteau<br> -Le joystick de gauche sert a se deplacer<br></font>");
+	Message->setText("<font color='blue'>Help Menu<br><br>******* Keyboard ********<br><br>A  -  Run to the left<br>D  -  Run to the right<br>W  -  Go up a ladder<br>S  -  Go down a ladder<br>SPACE  -  Jump<br>1  -  Hit with the hammer<br><br> ******** Controller ********<br><br>A  -  Jump<br>X  -  Hit with the hammer<br>LEFT JOYSTICK  -  Run and climb ladders<br></font>");
 	Message->setAlignment(Qt::AlignCenter);
 	Ok = new QPushButton("Ok");
 	Ok->setFixedSize(150, 35);

@@ -15,6 +15,7 @@
 #include <qradiobutton.h>
 #include <qbuttongroup.h>
 #include <qlabel.h>
+#include <QMessageBox>
 
 class OptionsPage : public QMainWindow
 {
@@ -22,7 +23,6 @@ class OptionsPage : public QMainWindow
 public:
 	OptionsPage(QWidget *parent = nullptr);
 	~OptionsPage();
-	int volume;
 private:
 	QWidget *centralWidget;
 	QVBoxLayout *mainLayout;
@@ -36,6 +36,6 @@ private:
 	QRadioButton *FPS60;
 	QPushButton *okButton;
 public slots:
-	void adjustVolume();
+	void showMessageBox();
 
 };

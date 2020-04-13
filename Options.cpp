@@ -9,7 +9,6 @@ Description : Implementation des methodes de la classe Options
 /* Initialiser les différents éléments de la fenêtre */
 OptionsPage::OptionsPage(QWidget *parent) : QMainWindow(parent)
 {
-
 	setWindowIcon(QIcon("Images/Icon.png"));
 	centralWidget = new QWidget(this);
 
@@ -20,11 +19,13 @@ OptionsPage::OptionsPage(QWidget *parent) : QMainWindow(parent)
 	volumeLabel = new QLabel();
 	volumeLabel->setText("<font color='blue'>Volume</font>");
 	volumeSlider = new QSlider(Qt::Horizontal);
-	QObject::connect(volumeSlider, SIGNAL(valueChanged()), this, SLOT(adjustVolume()));
+	QObject::connect(volumeSlider, SIGNAL(sliderReleased()), this, SLOT(showMessageBox()));
 	sensitivityLabel = new QLabel();
 	sensitivityLabel->setText("<font color='blue'>Microphone sensitivity</font>");
 	sensitivitySlider = new QSlider(Qt::Horizontal);
+	QObject::connect(sensitivitySlider, SIGNAL(sliderReleased()), this, SLOT(showMessageBox()));
 	recordButton = new QPushButton("Record voice");
+	QObject::connect(recordButton, SIGNAL(clicked()), this, SLOT(showMessageBox()));
 	FPS30 = new QRadioButton("30 FPS");
 	FPS30->setChecked(true);
 	QPalette* palette = new QPalette();
@@ -43,10 +44,10 @@ OptionsPage::OptionsPage(QWidget *parent) : QMainWindow(parent)
 	mainLayout->addWidget(volumeSlider, Qt::AlignCenter);
 	mainLayout->addWidget(sensitivityLabel);
 	mainLayout->addWidget(sensitivitySlider, Qt::AlignCenter);
-	mainLayout->addWidget(recordButton, Qt::AlignCenter);
+	mainLayout->addWidget(recordButton, Qt::AlignHCenter);
 	mainLayout->addWidget(FPS30);
 	mainLayout->addWidget(FPS60);
-	mainLayout->addWidget(okButton, Qt::AlignCenter);
+	mainLayout->addWidget(okButton, Qt::AlignHCenter);
 
 	QPalette *pal = new QPalette();
 	pal->setColor(QPalette::Background, Qt::black);
@@ -71,7 +72,13 @@ OptionsPage::~OptionsPage()
 	delete centralWidget;
 }
 
-void OptionsPage::adjustVolume()
+void OptionsPage::showMessageBox()
 {
-	volume = int(volumeSlider->value());
+	QMessageBox msg;
+	msg.setText("Sorry!");
+	msg.setInformativeText("This functionnality is not available yet.");
+	msg.setWindowIcon(QIcon("Images/Icon.png"));
+	msg.setStandardButtons(QMessageBox::Ok);
+	msg.setDefaultButton(QMessageBox::Ok);
+	msg.exec();
 }

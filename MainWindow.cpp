@@ -182,7 +182,6 @@ void MainWindow::initLayout()
 	QPalette palette;
 	palette.setColor(QPalette::Background, Qt::black);
 	centralWidget->setAutoFillBackground(true);
-	//palette.setBrush(QPalette::Background, bkgnd);
 	centralWidget->setPalette(palette);
 }
 
@@ -279,7 +278,7 @@ void MainWindow::continueLastGame()
 void MainWindow::exitGame()
 {
 	QMessageBox msgBox;
-	msgBox.setText("Your progression since your last session");
+	msgBox.setText("Save your progression");
 	msgBox.setInformativeText("Do you want to save your changes?");
 	msgBox.setWindowIcon(QIcon("Images/Icon.png"));
 	msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
