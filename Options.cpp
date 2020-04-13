@@ -44,10 +44,10 @@ OptionsPage::OptionsPage(QWidget *parent) : QMainWindow(parent)
 	mainLayout->addWidget(volumeSlider, Qt::AlignCenter);
 	mainLayout->addWidget(sensitivityLabel);
 	mainLayout->addWidget(sensitivitySlider, Qt::AlignCenter);
-	mainLayout->addWidget(recordButton, Qt::AlignCenter);
+	mainLayout->addWidget(recordButton, Qt::AlignHCenter);
 	mainLayout->addWidget(FPS30);
 	mainLayout->addWidget(FPS60);
-	mainLayout->addWidget(okButton, Qt::AlignCenter);
+	mainLayout->addWidget(okButton, Qt::AlignHCenter);
 
 	QPalette *pal = new QPalette();
 	pal->setColor(QPalette::Background, Qt::black);

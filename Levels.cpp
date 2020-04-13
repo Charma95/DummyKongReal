@@ -27,7 +27,8 @@ LevelsPage::LevelsPage(QWidget *parent) : QWidget(parent)
 	QPixmap bkgnd("Images/Background1.jpg");
 	QPalette palette;
 	setAutoFillBackground(true);
-	palette.setBrush(QPalette::Background, bkgnd);
+	palette.setColor(QPalette::Background, Qt::black);
+	//palette.setBrush(QPalette::Background, bkgnd);
 	setPalette(palette);
 
 	mainLayout->setAlignment(Qt::AlignCenter);
