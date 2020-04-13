@@ -14,5 +14,5 @@ Ladder::Ladder() : QGraphicsPixmapItem()
 
 Ladder::~Ladder()
 {
-
+	std::cout << "Destructeur de Ladder" << std::endl;
 }

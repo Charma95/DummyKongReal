@@ -137,6 +137,8 @@ Level::Level(int level)
 		map[MAX_HEIGHT - 16][MAX_WIDTH - 4] = PAULINE;
 		break;
 	}
+	std::cout << "Constructeur de Level" << std::endl;
+	PrintMemoryUsage();
 }
 
 Level::~Level()

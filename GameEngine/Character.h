@@ -15,6 +15,7 @@ Description : Declaration de la classe Character
 #include "Tile.h"
 #include "Ladder.h"
 #include "Pauline.h"
+#include "AllocationMetrics.h"
 
 #define JUMPFORCE 500
 #define RUNSPEED 300

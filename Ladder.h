@@ -7,6 +7,7 @@
 #pragma once
 
 #include <QGraphicsPixmapItem>
+#include <iostream>
 
 class Ladder : public QGraphicsPixmapItem
 {

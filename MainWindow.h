@@ -29,6 +29,7 @@
 #include "GameEngine/Game.h"
 #include <Options.h>
 #include "GameWindow.h"
+#include "AllocationMetrics.h"
 #include <QKeyEvent>
 
 

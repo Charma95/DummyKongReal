@@ -6,12 +6,13 @@
 */
 #include "GameWindow.h"
 
+
 GamePage::GamePage(int lvl) : QGraphicsView()
 {
 	mainGame = new Game(lvl);
 	QObject::connect(mainGame->getMario(), SIGNAL(finishLevel()), this, SLOT(finishLevel()));
 	// initialiser la musique et l'appliquer à la page actuelle
-	QMediaPlaylist *playlist = new QMediaPlaylist();
+	playlist = new QMediaPlaylist();
 	playlist->addMedia(QUrl("song/01 - Donkey Kong Main Theme.mp3"));
 	playlist->setPlaybackMode(QMediaPlaylist::Loop);
 	themesong = new QMediaPlayer();
@@ -19,7 +20,7 @@ GamePage::GamePage(int lvl) : QGraphicsView()
 	themesong->play();
 	pauline = new Pauline();
 	
-	//initialiser la scène et et les éléments qui sont dedans
+	// initialiser la scène et et les éléments qui sont dedans
 	scene = new QGraphicsScene();
 	scene->setSceneRect(0, 0, PIX_WIDTH * MAX_WIDTH, PIX_HEIGHT * MAX_HEIGHT);
 	setBackgroundBrush(QBrush(QImage("Images/Background.jpg")));
@@ -63,14 +64,24 @@ GamePage::GamePage(int lvl) : QGraphicsView()
 	startMessage.setStandardButtons(QMessageBox::Ok);
 	startMessage.setDefaultButton(QMessageBox::Ok);
 	int ret = startMessage.exec();
+	std::cout << "Constructeur de gameWindow" << std::endl;
+	PrintMemoryUsage();
 }
 
 GamePage::~GamePage()
 {
+	std::cout << "Destructeur de gamePage" << endl;
 	delete pauline;
+	delete t;
+	delete l;
+	delete lifePointsText;
+	delete lifeCountText;
 	delete scene;
 	delete timer1;
 	delete themesong;
+	delete playlist;
+	delete mainGame;
+	PrintMemoryUsage();
 }
 
 /* Cette fonction permet d'itérer à travers un matrice représentant un niveau et ajouter 
@@ -81,8 +92,6 @@ void GamePage::drawMap()
 	{
 		for (int j = 0; j < MAX_WIDTH; j++)
 		{
-			Tile *t;
-			Ladder *l;
 			
 			switch (mainGame->getLevel()->getMap(i, j))
 			{
@@ -118,7 +127,6 @@ void GamePage::refresh()
 {
 	// updater la position de mario
 	mainGame->getMario()->updatePosition();
-
 }
 
 void GamePage::finishLevel()
@@ -177,3 +185,23 @@ void GamePage::keyReleaseEvent(QKeyEvent *event)
 		mainGame->getMario()->stopClimbing();
 	}
 }
+
+
+//void* operator new(size_t size)
+//{
+//	s_AllocationMetrics.totalAllocated += size;
+//	//std::cout << "Allocating " << size << " bytes" << endl;
+//	return malloc(size);
+//}
+//
+//void operator delete(void* memory, size_t size)
+//{
+//	s_AllocationMetrics.totalFreed += size;
+//	//std::cout << "Freeing " << size << " bytes" << endl;
+//	free(memory);
+//}
+//
+//static void PrintMemoryUsage()
+//{
+//	std::cout << "Memory Usage: " << s_AllocationMetrics.currentUsage() << "bytes" << endl;
+//}

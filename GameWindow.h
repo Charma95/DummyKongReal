@@ -12,6 +12,7 @@
 #include "GameEngine/Game.h"
 #include <QGraphicsScene>
 #include <qgraphicsview.h>
+#include <memory>
 #include <qdebug.h>
 #include "Options.h"
 #include <QGraphicsPixmapItem>
@@ -21,6 +22,7 @@
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
 #include <QGraphicsTextItem>
+#include "AllocationMetrics.h"
 
 
 class GamePage : public QGraphicsView
@@ -45,8 +47,13 @@ private:
 	QTimer *timer1;
 	QGraphicsScene *scene;
 	QMediaPlayer *themesong;
+	QMediaPlaylist *playlist;
 	QGraphicsPixmapItem *pauline;
+	Tile *t;
+	Ladder *l;
 	int volumeLvl;
 	QGraphicsTextItem *lifePointsText;
 	QGraphicsTextItem *lifeCountText;
 };
+
+

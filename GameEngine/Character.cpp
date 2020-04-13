@@ -39,6 +39,8 @@ Character::Character(int positionX, int positionY, QPixmap pixmap) : QGraphicsPi
 	currentVelocity.x = 0;
 	currentVelocity.y = 0;
 	climbing = false;
+	std::cout << "Constructeur de character" << std::endl;
+	PrintMemoryUsage();
 }
 
 Character::~Character()

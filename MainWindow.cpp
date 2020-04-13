@@ -14,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent)
 	level(1)
 {
 	setupUI();
+	std::cout << "Constructeur de mainWindow" << std::endl;
+	PrintMemoryUsage();
 }
 
 MainWindow::~MainWindow()
@@ -41,6 +43,8 @@ MainWindow::~MainWindow()
 	delete menuBar;
 	if (mainLayout != nullptr)delete mainLayout;
 	if (centralWidget != nullptr)delete centralWidget;
+	std::cout << "Destructeur de mainWindow" << std::endl;
+	PrintMemoryUsage();
 }
 
 /* Afficher la page d'aide */

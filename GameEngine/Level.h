@@ -8,6 +8,7 @@ Description : Déclaration de la classe Level
 #pragma once
 
 #include <iostream>
+#include "AllocationMetrics.h"
 
 
 using namespace std;
