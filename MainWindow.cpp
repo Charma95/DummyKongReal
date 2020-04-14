@@ -202,7 +202,7 @@ void MainWindow::initMenus()
 	homeAction = new QAction("Home");
 	homeAction->setIcon(QIcon("Images/house.png"));
 	QObject::connect(homeAction, SIGNAL(triggered()), this, SLOT(showHomePage())); 
-	quitAction = new QAction("Quit");
+	quitAction = new QAction("Exit");
 	quitAction->setIcon(QIcon("Images/cross.png"));
 	QObject::connect(quitAction, SIGNAL(triggered()), this, SLOT(exitGame()));
 	level1Action = new QAction("Level 1");

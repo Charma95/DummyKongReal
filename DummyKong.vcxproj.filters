@@ -27,6 +27,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AllocationMetrics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="GameEngine\Character.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -63,11 +66,11 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AllocationMetrics.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AllocationMetrics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <CustomBuild Include="GameEngine\Character.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -145,10 +148,5 @@
     <CustomBuild Include="release\moc_predefs.h.cbt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="AllocationMetrics.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
